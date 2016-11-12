@@ -94,7 +94,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
         }        
 
-        $http.get('/api/relations/factions', data).success(function (data, status, headers, config) {
+        $http.get('/api/search/?q=' + $scope.searchfield, data).success(function (data, status, headers, config) {
             var result = data;
 
             for (i in result) {
