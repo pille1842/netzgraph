@@ -5,6 +5,7 @@ namespace App\Api\Controllers;
 use Illuminate\Http\Request;
 use App\Person;
 use App\Faction;
+use App\State;
 
 class RelationsController extends BaseController
 {
@@ -253,6 +254,7 @@ class RelationsController extends BaseController
 		$object->label = $state->name;
 		$object->shape = 'image';
         $object->image = $state->image;
+        $object->url = '/api/relations/state/'.$state->id;
 		$nodes[] = $object; # add node
 		
 		# add relation to person
@@ -308,6 +310,7 @@ class RelationsController extends BaseController
 		$object->id = $fractionId;
 		$object->shape = 'image';
         $object->image = $faction->image;
+        $object->url = '/api/relations/faction/'.$faction->id;
 		$nodes[] = $object; # add node
 		
 		# add relation to person
@@ -358,6 +361,7 @@ class RelationsController extends BaseController
         	$object->label = $person->firstname.' '.trim($person->peerage.' '.$person->lastname);
         	$object->shape = 'circularImage';
         	$object->image = $person->image;
+            $object->url = '/api/relations/person/'.$person->id;
 
         	$ids[] = $object->id;
         	$data[] = $object;
@@ -393,6 +397,52 @@ class RelationsController extends BaseController
             $object->shape = 'image';
             $object->image = $faction->image;
             $object->url = '/api/relations/faction/'.$faction->id;
+
+            $ids[] = $object->id;
+            $data[] = $object;
+        }
+
+        $nodes = [];
+        foreach ($ids as $id) {
+            $object = new \stdClass();
+            $object->from = $id;
+            $object->to = 0;
+
+            $nodes[] = $object;
+        }
+
+        $options = [
+            'physics' => [
+                'barnesHut' => [
+                    'gravitationalConstant' => -10000
+                ]
+            ]
+        ];
+
+        return ['nodes' => $data, 'edges' => $nodes, 'options' => array_merge($this->defaultOptions, $options)];
+    }
+
+    public function state($id)
+    {
+        $state = State::findOrFail($id);
+
+        $object = new \stdClass();
+        $object->id = 0;
+        $object->label = $state->name;
+        $object->shape = 'image';
+        $object->image = $state->image;
+
+        $data[] = $object;
+
+        $persons = $state->persons;
+
+        foreach ($persons as $person) {
+            $object = new \stdClass();
+            $object->id = $person->id;
+            $object->shape = 'circularImage';
+            $object->image = $person->image;
+            $object->label = $person->firstname.' '.trim($person->peerage.' '.$person->lastname);
+            $object->url = '/api/relations/person/'.$person->id;
 
             $ids[] = $object->id;
             $data[] = $object;

@@ -25,4 +25,5 @@ $api->version('v1', function ($api) {
     $api->get('relations/faction/{id}', 'App\Api\Controllers\RelationsController@faction');
     $api->get('relations/factions', 'App\Api\Controllers\RelationsController@factions');
 	$api->get('relations/person/{id}' , 'App\Api\Controllers\RelationsController@person');
+	$api->get('relations/state/{id}' , 'App\Api\Controllers\RelationsController@state');
 });
