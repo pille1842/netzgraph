@@ -48,7 +48,7 @@
 		</div>
 
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
-			<div class="col-sm-10 col-md-10">
+			<div class="col-sm-9 col-md-9">
 				<form class="navbar-form " role="search">
 					<div class="form-group" style="width:100%;">
 
