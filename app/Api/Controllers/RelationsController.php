@@ -8,6 +8,28 @@ use App\Faction;
 
 class RelationsController extends BaseController
 {
+    protected $defaultOptions = [
+        'autoResize' => true,
+        'height' => '100%',
+        'width' => '100%',
+        'locale' => 'de',
+        'nodes' => [
+            'borderWidth' => 4,
+            'size' => 30,
+            'color' => [
+                'border' => 'lightgray'
+            ]
+        ],
+        'edges' => [
+            'color' => 'lightgray'
+        ],
+        'clickToUse' => false,
+        'layout' => [
+            'improvedLayout' => true,
+            'randomSeed' => 2
+        ]
+    ];
+
     public function allpersons()
     {
         $persons = Person::all();
@@ -43,7 +65,7 @@ class RelationsController extends BaseController
         	$nodes[] = $object;
         }
 
-        return ['nodes' => $data, 'edges' => $nodes];
+        return ['nodes' => $data, 'edges' => $nodes, 'options' => $this->defaultOptions];
     }
 	
 	public function person($id)
@@ -134,7 +156,7 @@ class RelationsController extends BaseController
 		
 		
 		
-		return ['nodes' => $nodes, 'edges' => $edges];
+		return ['nodes' => $nodes, 'edges' => $edges, 'options' => $this->defaultOptions];
 	}
 
     public function faction($id)
@@ -174,7 +196,7 @@ class RelationsController extends BaseController
         	$nodes[] = $object;
         }
 
-        return ['nodes' => $data, 'edges' => $nodes];
+        return ['nodes' => $data, 'edges' => $nodes, 'options' => $this->defaultOptions];
     }
 
     public function factions()
@@ -209,6 +231,6 @@ class RelationsController extends BaseController
             $nodes[] = $object;
         }
 
-        return ['nodes' => $data, 'edges' => $nodes];
+        return ['nodes' => $data, 'edges' => $nodes, 'options' => $this->defaultOptions];
     }
 }
