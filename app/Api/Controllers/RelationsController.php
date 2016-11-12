@@ -73,7 +73,7 @@ class RelationsController extends BaseController
 		$person = Person::findOrFail($id);
 		$committees = $person->committees;
 		
-		§nodeCounter = 0;
+		$nodeCounter = 0;
 		
 		$personId = 0;
 		$baseCommitteeId = 1; # könnte auch als counter gestaltet werden der immer hochzählt so das keine große statische nummer genutzt werden muss
