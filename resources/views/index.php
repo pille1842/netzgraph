@@ -9,7 +9,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Bare - Start Bootstrap Template</title>
+	<title>Bundesgraph</title>
 
 	<!-- Bootstrap Core CSS -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.17.0/vis.min.js"> </script>
@@ -36,7 +36,7 @@
 <body ng-app="graph">
 <div ng-controller='graphCtrl'>
 	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
-		<a href="#" class="navbar-left"><img src="/path/to/image.png"></a>
+		
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -44,11 +44,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-			<a class="navbar-brand" rel="home" href="/" title="Bundesgraph">Bundesgraph</a>
+			<a href="#" class="navbar-left"><img src="logo.png"></a>
 		</div>
 
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
-			<div class="col-sm-10 col-md-10">
+			<div class="col-sm-9 col-md-9">
 				<form class="navbar-form " role="search">
 					<div class="form-group" style="width:100%;">
 

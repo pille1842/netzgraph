@@ -73,10 +73,20 @@ class RelationsController extends BaseController
 		$person = Person::findOrFail($id);
 		$committees = $person->committees;
 		
+		$nodeCounter = 0;
+		
 		$personId = 0;
-		$baseCommitteeId = 5000; # könnte auch als counter gestaltet werden der immer hochzählt so das keine große statische nummer genutzt werden muss
-		$OrdentlichesMitgliedId = 5001;
-		$StellvertretendesMitgliedId = 5002;
+		$baseCommitteeId = 1; # könnte auch als counter gestaltet werden der immer hochzählt so das keine große statische nummer genutzt werden muss
+		$OrdentlichesMitgliedId = 2;
+		$StellvertretendesMitgliedId = 3;
+		
+		$baseEarningLevelNode = 5003;
+		$earningLevelIdCounter = 5004; # from 5004 - 5014 if all earning levels are used
+		$earningNameCounter = 5015; # from 5015 - 6000
+		
+		$stateId = 6001;
+		$districtId = 6002;
+		$fractionId = 6003;
 		
 		$nodes = [];
 		$edges = [];
@@ -97,8 +107,8 @@ class RelationsController extends BaseController
 		
 		# create relation betweeen person and comittee
 		$object = new \stdClass();
-        $object->from = $personId;
-        $object->to = $baseCommitteeId;
+        $object->from = $baseCommitteeId;
+        $object->to = $personId;
 		$edges[] = $object;
 		
 		# create Ordentliches Mitglied Node
@@ -125,7 +135,7 @@ class RelationsController extends BaseController
 		$object->to = $baseCommitteeId;
 		$edges[] = $object; # add to edge
 		
-		
+		/*
 		# create nodes for each committee
 		foreach($committees as $committee) {
 			$role = $committee->pivot->role;
@@ -154,10 +164,8 @@ class RelationsController extends BaseController
 			}
 		}
 		
-				# ------- earning levels and earnings -----------
-		$baseEarningLevelNode = 5003;
-		$earningLevelIdCounter = 5004; # from 5004 - 5014 if all earning levels are used
-		$earningNameCounter = 5015; # from 5015 - 6000
+		# ---------------------- earning levels and earnings -------------------------------------
+		# ids at top
 		 
 		# create base earning level node
 		$object = new \stdClass();
@@ -214,6 +222,59 @@ class RelationsController extends BaseController
 			$earningLevelIdCounter = $earningLevelIdCounter + 1;
 		}
 		
+		
+		# ----- add state ---------
+		
+		# add bundesland node
+		
+		# id at top
+		$state = $person->state;
+	
+		# create state node
+		$object = new \stdClass();
+		$object->id = $stateId;
+		$object->label = $state->name;
+		$nodes[] = $object; # add node
+		
+		# add relation to person
+		$object = new \stdClass();
+		$object->from = $personId;
+		$object->to = $stateId;
+		$edges[] = $object; # add to edge
+		
+		
+		# ----- add districts ----------
+		
+		# add district node
+		
+		# id at top
+		$district = $person->district;
+		
+		if($district->name == "NULL") {
+			# create district node
+			$object = new \stdClass();
+			$object->id = $districtId;
+			$object->label = "Kein Wahlkreis";
+			$nodes[] = $object; # add node
+		} else {
+			# create district node
+			$object = new \stdClass();
+			$object->id = $districtId;
+			$object->label = $district->name;
+			$nodes[] = $object; # add node
+		}
+		
+		# add relation to person
+		$object = new \stdClass();
+		$object->from = $personId;
+		$object->to = $districtId;
+		$edges[] = $object; # add to edge
+		
+		
+		# ----- add fraction ----------
+		# id at top
+		
+		*/
 		return ['nodes' => $nodes, 'edges' => $edges, 'options' => $this->defaultOptions];
 	}
 

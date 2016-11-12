@@ -1,9 +1,4 @@
 var appModule = angular.module('graph', [])
-/*   .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('#/person/:id', {controller: 'searchCtrl'});
-    }])
-*/
-
 appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($scope, $http, $compile) {
 
     $scope.init = function () {
@@ -103,15 +98,10 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
         })
     }
 
+    $scope.alert = function(){
+        alert("Hello! I am an alert box!!");
+    }
+
 
 
 }]);
-/*
- appModule.controller('searchCtrl', function ($scope, $routeParams) {
-        var init = function () {
-             alert(data);
-        };
-
-        // fire on controller loaded
-        init();
-    });*/
