@@ -53,7 +53,8 @@ class RelationsController extends BaseController
 		
 		$personId = 0;
 		$baseCommitteeId = 5000; # könnte auch als counter gestaltet werden der immer hochzählt so das keine große statische nummer genutzt werden muss
-
+		$OrdentlichesMitgliedId = 5001;
+		$StellvertretendesMitgliedId = 5002;
 		
 		$nodes = [];
 		$edges = [];
@@ -78,6 +79,20 @@ class RelationsController extends BaseController
         $object->to = $baseCommitteeId;
 		$edges[] = $object;
 		
+		# create Ordentliches Mitglied Node
+		$object = new \stdClass();
+        $object->id = $OrdentlichesMitgliedId;
+        $object->label = 'Ordentliches Mitglied';
+		$nodes[] = $object; # add node
+		
+		
+		# create Stellvertretendes Mitglied Node
+		$object = new \stdClass();
+        $object->id = $StellvertretendesMitgliedId;
+        $object->label = 'Stellvertrendes Mitglied';
+		$nodes[] = $object; # add node
+		
+		
 		# create nodes for each committee
 		foreach($committees as $committee) {
 			$role = $committee->pivot->role;
@@ -92,7 +107,33 @@ class RelationsController extends BaseController
         	$object->from = $baseCommitteeId;
         	$object->to = $committee->id;
 			$edges[] = $object; # add to edge
+			
+			# check wich role
+			if($role == "Stellvertretendes Mitglied") {
+				# Stellvertretendes Mitglied 
+				# insert relation from Stellvertretendes Mitglied to committe
+				$object = new \stdClass();
+				$object->from = $StellvertretendesMitgliedId;
+				$object->to = $committee->id;
+				$edges[] = $object; # add to edge
+				
+			} else {
+				# Ordentliches Mitglied
+				# insert relation from Ordentliches Mitglied to committe
+				$object = new \stdClass();
+				$object->from = $OrdentlichesMitgliedId;
+				$object->to = $committee->id;
+				$edges[] = $object; # add to edge
+			}
+			
 		}
+		
+		
+		
+		
+		
+		
+		
 		return ['nodes' => $nodes, 'edges' => $edges];
 	}
 
