@@ -73,10 +73,12 @@ class RelationsController extends BaseController
 		$person = Person::findOrFail($id);
 		$committees = $person->committees;
 		
+		§nodeCounter = 0;
+		
 		$personId = 0;
-		$baseCommitteeId = 5000; # könnte auch als counter gestaltet werden der immer hochzählt so das keine große statische nummer genutzt werden muss
-		$OrdentlichesMitgliedId = 5001;
-		$StellvertretendesMitgliedId = 5002;
+		$baseCommitteeId = 1; # könnte auch als counter gestaltet werden der immer hochzählt so das keine große statische nummer genutzt werden muss
+		$OrdentlichesMitgliedId = 2;
+		$StellvertretendesMitgliedId = 3;
 		
 		$baseEarningLevelNode = 5003;
 		$earningLevelIdCounter = 5004; # from 5004 - 5014 if all earning levels are used
@@ -133,7 +135,7 @@ class RelationsController extends BaseController
 		$object->to = $baseCommitteeId;
 		$edges[] = $object; # add to edge
 		
-		
+		"""
 		# create nodes for each committee
 		foreach($committees as $committee) {
 			$role = $committee->pivot->role;
@@ -222,6 +224,9 @@ class RelationsController extends BaseController
 		
 		
 		# ----- add state ---------
+		
+		# add bundesland node
+		
 		# id at top
 		$state = $person->state;
 	
@@ -239,6 +244,9 @@ class RelationsController extends BaseController
 		
 		
 		# ----- add districts ----------
+		
+		# add district node
+		
 		# id at top
 		$district = $person->district;
 		
@@ -266,7 +274,7 @@ class RelationsController extends BaseController
 		# ----- add fraction ----------
 		# id at top
 		
-		
+		"""
 		return ['nodes' => $nodes, 'edges' => $edges, 'options' => $this->defaultOptions];
 	}
 
