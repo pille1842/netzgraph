@@ -34,9 +34,9 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
         var jsonNodes = 0;
         var jsonEdges = 0;
-        $http.get('/api/relations/allpersons', data).success(function (data, status, headers, config) {
-            jsonNodes = data.data;
-            jsonEdges = data.nodes;
+        $http.get('/api/relations/factions', data).success(function (data, status, headers, config) {
+            jsonNodes = data.nodes;
+            jsonEdges = data.edges;
 
             // create an array with nodes
             var nodes = new vis.DataSet(jsonNodes);
@@ -90,35 +90,43 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
 
     $scope.search = function () {
-        var result = [
-            { "caption": "Angela Merkel", "url": "/person/test" },
-            { "caption": "Horst Seehoger", "url": "/person/test111" },
-            { "caption": "Peter Altmaier", "url": "/person/test567" },
-            { "caption": "Klaus Juncker", "url": "/person/test123" }
-        ]
-
-
-        for (i in result) {
-
-
-            var my_form = document.createElement("FORM")
-            my_form.method = "GET"
-            my_form.action = "person-php"
-
-            my_btn = document.createElement("BUTTON")
-            my_btn.setAttribute("class", "btn-link")
-            my_btn.setAttribute("type", "submit")
-            my_btn.setAttribute("name", "name_test")
-            my_btn.setAttribute("value", "value_test")
-
-            my_text = document.createTextNode(result[i].caption)
-            my_btn.appendChild(my_text)
-
-            my_form.appendChild(my_btn)
-
-            document.getElementById("dropdownId").appendChild(my_form);
+        var data = {
 
         }
+
+        $http.get('/api/search/?q=' + $scope.searchfield, data).success(function (data, status, headers, config) {
+            var result = data;
+
+            var searchResultsContainer = document.getElementById("dropdownId");
+            while (searchResultsContainer.firstChild) {
+                searchResultsContainer.removeChild(searchResultsContainer.firstChild);
+            }
+            for (i in result) {
+
+
+                var my_form = document.createElement("FORM")
+
+
+                my_form.method = "GET";
+                my_form.action = "person-php";
+
+                my_btn = document.createElement("BUTTON")
+                my_btn.setAttribute("class", "btn-link")
+                my_btn.setAttribute("type", "submit")
+                my_btn.setAttribute("name", "name_test")
+                my_btn.setAttribute("value", "value_test")
+
+                my_text = document.createTextNode(result[i].caption)
+                my_btn.appendChild(my_text)
+
+                my_form.appendChild(my_btn)
+                searchResultsContainer.appendChild(my_form)
+
+            }
+        })
     }
+
+
+
 }]);
 
