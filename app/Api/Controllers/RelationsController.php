@@ -392,6 +392,7 @@ class RelationsController extends BaseController
             $object->id = $faction->id;
             $object->shape = 'image';
             $object->image = $faction->image;
+            $object->url = '/api/relations/faction/'.$faction->id;
 
             $ids[] = $object->id;
             $data[] = $object;
