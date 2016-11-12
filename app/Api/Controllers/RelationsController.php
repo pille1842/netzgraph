@@ -295,7 +295,7 @@ class RelationsController extends BaseController
 		$edges[] = $object; # add to edge
 		
 		
-		# ----- add fraction ----------
+		# ----- add faction ----------
 		# add fraction node
 		$faction = $person->faction;
 		
