@@ -44,7 +44,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-			<a href="#" class="navbar-left"><img src="logo.png"></a>
+			<a href="/" class="navbar-left"><img src="logo.png"></a>
 		</div>
 
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
