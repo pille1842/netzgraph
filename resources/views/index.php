@@ -177,7 +177,7 @@
 <!--aa-->
                         		
 						<div class="col-sm-10 col-md-10">
-						<div ng-show="!somefield.length" class="dropdown-content" style="width:99%;", id="dropdownId">
+						<div ng-show="somefield.length" class="dropdown-content" style="width:99%;", id="dropdownId">
                             
                         </div>
                         </div>
