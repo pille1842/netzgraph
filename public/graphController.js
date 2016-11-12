@@ -118,7 +118,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
                 document.getElementById("dropdownId").appendChild(my_form);
 
             }
-        }
+        })
     }
               
         
