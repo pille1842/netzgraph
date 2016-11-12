@@ -81,12 +81,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
                 searchResultsContainer.removeChild(searchResultsContainer.firstChild);
             }
 
-               $scope.results =  [
-        "Alfreds Futterkiste",
-        "Berglunds snabbköp",
-        "Centro comercial Moctezuma",
-        "Ernst Handel",
-    ]
+               $scope.results = result
 
      /*       for (i in result) {
 
