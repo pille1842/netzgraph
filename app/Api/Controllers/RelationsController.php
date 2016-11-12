@@ -85,13 +85,11 @@ class RelationsController extends BaseController
         $object->label = 'Ordentliches Mitglied';
 		$nodes[] = $object; # add node
 		
-		
 		# create Stellvertretendes Mitglied Node
 		$object = new \stdClass();
         $object->id = $StellvertretendesMitgliedId;
         $object->label = 'Stellvertrendes Mitglied';
 		$nodes[] = $object; # add node
-		
 		
 		# create nodes for each committee
 		foreach($committees as $committee) {
@@ -125,15 +123,7 @@ class RelationsController extends BaseController
 				$object->to = $committee->id;
 				$edges[] = $object; # add to edge
 			}
-			
 		}
-		
-		
-		
-		
-		
-		
-		
 		return ['nodes' => $nodes, 'edges' => $edges];
 	}
 
