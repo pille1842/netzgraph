@@ -73,14 +73,16 @@ class RelationsController extends BaseController
 		$person = Person::findOrFail($id);
 		$committees = $person->committees;
 		
-		$personId = 0;
-		$baseCommitteeId = 5000; # könnte auch als counter gestaltet werden der immer hochzählt so das keine große statische nummer genutzt werden muss
-		$OrdentlichesMitgliedId = 5001;
-		$StellvertretendesMitgliedId = 5002;
+		$committeeIdCounter = 1000;
 		
-		$baseEarningLevelNode = 5003;
-		$earningLevelIdCounter = 5004; # from 5004 - 5014 if all earning levels are used
-		$earningNameCounter = 5015; # from 5015 - 6000
+		$personId = 0;
+		$baseCommitteeId = 1; # könnte auch als counter gestaltet werden der immer hochzählt so das keine große statische nummer genutzt werden muss
+		$OrdentlichesMitgliedId = 2;
+		$StellvertretendesMitgliedId = 3;
+		
+		$baseEarningLevelNode = 4;
+		$earningLevelIdCounter = 5000; # from 5000 - 5009 if all earning levels are used
+		$earningNameCounter = 5010; # from 5010 - 6000
 		
 		$stateId = 6001;
 		$districtId = 6002;
@@ -139,7 +141,7 @@ class RelationsController extends BaseController
 			$role = $committee->pivot->role;
 			
 			$object = new \stdClass();
-        	$object->id = $committee->id;
+        	$object->id = $committeeIdCounter;
         	$object->label = $committee->name;
 			$nodes[] = $object; # add not node
 			
@@ -148,18 +150,20 @@ class RelationsController extends BaseController
 				# stellvertretendes committe
 				# create relation with base committe node
 				$object = new \stdClass();
-				$object->from = $StellvertretendesMitgliedId;
-				$object->to = $committee->id;
+				$object->from = $committeeIdCounter;
+				$object->to = $StellvertretendesMitgliedId;
 				$edges[] = $object; # add to edge
 				
 			} else {
 				# Ordentliches Mitglied
 				# create relation with base committe node
 				$object = new \stdClass();
-				$object->from = $OrdentlichesMitgliedId;
-				$object->to = $committee->id;
+				$object->from = $committeeIdCounter;
+				$object->to = $OrdentlichesMitgliedId;
 				$edges[] = $object; # add to edge
 			}
+			
+			$committeeIdCounter = $committeeIdCounter + 1;
 		}
 		
 		# ---------------------- earning levels and earnings -------------------------------------
@@ -173,8 +177,8 @@ class RelationsController extends BaseController
 		
 		# create relation from person to base earning level node
 		$object = new \stdClass();
-		$object->from = $personId;
-		$object->to = $baseEarningLevelNode;
+		$object->from = $baseEarningLevelNode;
+		$object->to = $personId;
 		$edges[] = $object; # add to edge
  
 		
@@ -194,8 +198,8 @@ class RelationsController extends BaseController
 			
 			# create relation to base earning level node
 			$object = new \stdClass();
-			$object->from = $baseEarningLevelNode;
-			$object->to = $earningLevelIdCounter;
+			$object->from = $earningLevelIdCounter;
+			$object->to = $baseEarningLevelNode;
 			$edges[] = $object; # add to edge
 			
 			# go through all names that are in the same earning level
@@ -208,8 +212,8 @@ class RelationsController extends BaseController
 				
 				# add relation to earning level
 				$object = new \stdClass();
-				$object->from = $earningLevelIdCounter;
-				$object->to = $earningNameCounter;
+				$object->from = $earningNameCounter;
+				$object->to = $earningLevelIdCounter;
 				$edges[] = $object; # add to edge
 				
 				# add 1 to the counter
@@ -222,6 +226,9 @@ class RelationsController extends BaseController
 		
 		
 		# ----- add state ---------
+		
+		# add bundesland node
+		
 		# id at top
 		$state = $person->state;
 	
@@ -229,6 +236,8 @@ class RelationsController extends BaseController
 		$object = new \stdClass();
 		$object->id = $stateId;
 		$object->label = $state->name;
+		$object->shape = 'circularImage';
+        $object->image = $state->image;
 		$nodes[] = $object; # add node
 		
 		# add relation to person
@@ -239,6 +248,9 @@ class RelationsController extends BaseController
 		
 		
 		# ----- add districts ----------
+		
+		# add district node
+		
 		# id at top
 		$district = $person->district;
 		
@@ -266,7 +278,7 @@ class RelationsController extends BaseController
 		# ----- add fraction ----------
 		# id at top
 		
-		
+		*/
 		return ['nodes' => $nodes, 'edges' => $edges, 'options' => $this->defaultOptions];
 	}
 
