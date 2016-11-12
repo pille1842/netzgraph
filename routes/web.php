@@ -21,5 +21,5 @@ $api->version('v1', function ($api) {
     $api->get('person', 'App\Api\Controllers\PersonController@index');
     $api->get('person/{id}', 'App\Api\Controllers\PersonController@show');
     $api->get('search', 'App\Api\Controllers\SearchController@search');
-    $api->get('relations/{relation}/{id}', 'App\Api\Controllers\RelationsController@relation');
+    $api->get('relations/allpersons', 'App\Api\Controllers\RelationsController@allpersons');
 });
