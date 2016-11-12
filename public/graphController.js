@@ -34,7 +34,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
         var jsonNodes = 0;
         var jsonEdges = 0;
-        $http.get('/api/relations/allpersons', data).success(function (data, status, headers, config) {
+        $http.get('/api/relations/factions', data).success(function (data, status, headers, config) {
             jsonNodes = data.data;
             jsonEdges = data.nodes;
 
@@ -96,7 +96,6 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             { "caption": "Peter Altmaier", "url": "/person/test567" },
             { "caption": "Klaus Juncker", "url": "/person/test123" }
         ]
-
 
         for (i in result) {
 
