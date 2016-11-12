@@ -108,8 +108,8 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
 
                 my_form.method = "GET";
-                my_form.action = "person-php";
-
+                my_form.action = "/api/person/";
+/*a*/
                 my_btn = document.createElement("BUTTON")
                 my_btn.setAttribute("class", "btn-link")
                 my_btn.setAttribute("type", "submit")
