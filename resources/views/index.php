@@ -33,8 +33,8 @@
 
 </head>
 
-<body ng-app="graph">
-<div ng-controller='graphCtrl'>
+<body ng-app="graph" >
+<div ng-controller='graphCtrl' ng-click="test()">
 	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 		
 		<div class="navbar-header">
@@ -61,13 +61,13 @@
 						</div>
 
                         		
-						<div class="col-sm-10 col-md-10">
-							<div ng-show="searchfield.length" class="dropdown-content" style="width:99%;" id="dropdownId">
+						<div class="col-sm-10 col-md-10" class="dropdown">
+							<div ng-show="searchfield.length" style="width:99%;" id="dropdownId">
 
 							</div>
-							<ul>
-								<li ng-repeat="(key,val) in results">
-									<a ng-click="setResult(val.url)">{{ val.caption }}</a>
+							<ul ng-hide="!hide" class="dropdown-content" style="width:auto; list-style-type: none;">
+								<li ng-repeat="(key,val) in results"  >
+									<a ng-click="setResult(val.url)" >{{ val.caption }}</a>
 								</li>
 							</ul>
                         </div>

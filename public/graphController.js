@@ -51,7 +51,8 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             }
 
             $scope.results = result
-
+			$scope.hide = true
+			
             // for (i in result) {
             //     var my_form = document.createElement("a"); 
             //     my_form.setAttribute("href", result[i].url)
@@ -78,4 +79,10 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             $scope.network.setOptions(options);
         })
     }
+	
+	$scope.test = function() {
+		$scope.hide = false
+	}
+	
+	
 }]);
