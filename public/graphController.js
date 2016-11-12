@@ -88,5 +88,10 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
  }
 
+   $scope.search = function() {
+
+    $scope.msg = 'clicked';
+  }
+
 }]);
 
