@@ -12,7 +12,7 @@
 */
 
 $app->get('/', function () use ($app) {
-    return $app->version();
+    return view('index');
 });
 
 $api = app('Dingo\Api\Routing\Router');
@@ -22,4 +22,5 @@ $api->version('v1', function ($api) {
     $api->get('person/{id}', 'App\Api\Controllers\PersonController@show');
     $api->get('search', 'App\Api\Controllers\SearchController@search');
     $api->get('relations/allpersons', 'App\Api\Controllers\RelationsController@allpersons');
+    $api->get('relations/faction/{id}', 'App\Api\Controllers\RelationsController@faction');
 });
