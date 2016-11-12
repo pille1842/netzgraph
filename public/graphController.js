@@ -34,7 +34,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
         var jsonNodes = 0;
         var jsonEdges = 0;
-        $http.get('http://tupaq.de/api/relations/allpersons', data).success(function (data, status, headers, config) {
+        $http.get('/api/relations/allpersons', data).success(function (data, status, headers, config) {
             jsonNodes = data.data;
             jsonEdges = data.nodes;
 
@@ -88,5 +88,10 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
  }
 
+
+   $scope.search = function() {
+
+    alert("Hello! I am an alert box!!");
+  }
 }]);
 
