@@ -159,7 +159,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-			<a class="navbar-brand" rel="home" href="/" title="Aahan Krish's Blog - Homepage">ITSMEEE</a>
+			<a class="navbar-brand" rel="home" href="/" title="Bundesgraph">Bundesgraph</a>
 		</div>
 
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -174,7 +174,7 @@
 								<button ng-href='#here' ng-click='search()' class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 							</div>
 						</div>
-<!--aa-->
+
                         		
 						<div class="col-sm-10 col-md-10">
 						<div ng-show="searchfield.length" class="dropdown-content" style="width:99%;", id="dropdownId">
