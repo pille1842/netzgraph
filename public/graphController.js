@@ -1,5 +1,26 @@
 var appModule = angular.module('graph', [])
 appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($scope, $http, $compile) {
+
+    
+    loadProgressBar = function(){
+                $scope.network.on("stabilizationProgress", function (params) {
+                var maxWidth = 496;
+                var minWidth = 20;
+                var widthFactor = params.iterations / params.total;
+                var width = Math.max(minWidth, maxWidth * widthFactor);
+
+                document.getElementById('bar').style.width = width + 'px';
+                document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
+            });
+            $scope.network.once("stabilizationIterationsDone", function () {
+                document.getElementById('text').innerHTML = '100%';
+                document.getElementById('bar').style.width = '496px';
+                document.getElementById('loadingBar').style.opacity = 0;
+                // really clean the dom element
+                setTimeout(function () { document.getElementById('loadingBar').style.display = 'none'; }, 500);
+            });
+    }
+
     $scope.init = function () {
 
         var jsonNodes = 0;
@@ -18,22 +39,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
             $scope.network = new vis.Network(container, data, options);
             $scope.network.setOptions(options);
-            $scope.network.on("stabilizationProgress", function (params) {
-                var maxWidth = 496;
-                var minWidth = 20;
-                var widthFactor = params.iterations / params.total;
-                var width = Math.max(minWidth, maxWidth * widthFactor);
-
-                document.getElementById('bar').style.width = width + 'px';
-                document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
-            });
-            $scope.network.once("stabilizationIterationsDone", function () {
-                document.getElementById('text').innerHTML = '100%';
-                document.getElementById('bar').style.width = '496px';
-                document.getElementById('loadingBar').style.opacity = 0;
-                // really clean the dom element
-                setTimeout(function () { document.getElementById('loadingBar').style.display = 'none'; }, 500);
-            });
+            loadProgressBar();
 
             $scope.network.on("click", function (params) {
             });
@@ -51,19 +57,6 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             }
 
             $scope.results = result
-
-            // for (i in result) {
-            //     var my_form = document.createElement("a"); 
-            //     my_form.setAttribute("href", result[i].url)
-            //     my_form.setAttribute("ng-href",'#here')
-            //     my_form.setAttribute("ng-click", "alert(1)")
-            //     my_form.setAttribute("style", "display:block;")
-            //     my_text = document.createTextNode(result[i].caption)
-               
-            //     my_form.appendChild(my_text)
-
-            //     searchResultsContainer.appendChild(my_form)
-            // }
         })
     }
 
@@ -76,6 +69,8 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             var edges = new vis.DataSet(jsonEdges);
             $scope.network.setData({nodes:nodes, edges:edges})
             $scope.network.setOptions(options);
+            loadProgressBar();
         })
     }
+
 }]);
