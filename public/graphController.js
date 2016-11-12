@@ -4,7 +4,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
     
     loadProgressBar = function(){
                document.getElementById('loadingBar').style.opacity = 100;
-               document.getElementById('loadingBar').style.display = 'block'
+               document.getElementById('loadingBar').style.display = 'show'
                 $scope.network.on("stabilizationProgress", function (params) {
                 document.getElementById("mynetwork").style.display = 'none';
                 var maxWidth = 496;
@@ -17,7 +17,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
                 document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
             });
             $scope.network.once("stabilizationIterationsDone", function () {
-                document.getElementById("mynetwork").style.display = 'block';
+                document.getElementById("mynetwork").style.display = 'show';
                 document.getElementById('text').innerHTML = '100%';
                 document.getElementById('bar').style.width = '496px';
                 document.getElementById('loadingBar').style.opacity = 0;
