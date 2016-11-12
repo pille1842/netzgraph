@@ -113,6 +113,19 @@ class RelationsController extends BaseController
         $object->label = 'Stellvertrendes Mitglied';
 		$nodes[] = $object; # add node
 		
+		# insert relation from Stellvertretendes Mitglied to base commmitte
+		$object = new \stdClass();
+		$object->from = $StellvertretendesMitgliedId;
+		$object->to = $baseCommitteeId;
+		$edges[] = $object; # add to edge
+		
+		# insert relation from Ordentliches Mitglied to base committe
+		$object = new \stdClass();
+		$object->from = $OrdentlichesMitgliedId;
+		$object->to = $baseCommitteeId;
+		$edges[] = $object; # add to edge
+		
+		
 		# create nodes for each committee
 		foreach($committees as $committee) {
 			$role = $committee->pivot->role;
@@ -122,16 +135,10 @@ class RelationsController extends BaseController
         	$object->label = $committee->name;
 			$nodes[] = $object; # add not node
 			
-			# create relation with base committe node
-			$object = new \stdClass();
-        	$object->from = $baseCommitteeId;
-        	$object->to = $committee->id;
-			$edges[] = $object; # add to edge
-			
 			# check wich role
 			if($role == "Stellvertretendes Mitglied") {
-				# Stellvertretendes Mitglied 
-				# insert relation from Stellvertretendes Mitglied to committe
+				# stellvertretendes committe
+				# create relation with base committe node
 				$object = new \stdClass();
 				$object->from = $StellvertretendesMitgliedId;
 				$object->to = $committee->id;
@@ -139,7 +146,7 @@ class RelationsController extends BaseController
 				
 			} else {
 				# Ordentliches Mitglied
-				# insert relation from Ordentliches Mitglied to committe
+				# create relation with base committe node
 				$object = new \stdClass();
 				$object->from = $OrdentlichesMitgliedId;
 				$object->to = $committee->id;
