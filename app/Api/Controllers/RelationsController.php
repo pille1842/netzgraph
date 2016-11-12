@@ -246,7 +246,7 @@ class RelationsController extends BaseController
 		$object = new \stdClass();
 		$object->id = $stateId;
 		$object->label = $state->name;
-		$object->shape = 'circularImage';
+		$object->shape = 'image';
         $object->image = $state->image;
 		$nodes[] = $object; # add node
 		
@@ -301,8 +301,7 @@ class RelationsController extends BaseController
 		
 		$object = new \stdClass();
 		$object->id = $fractionId;
-		$object->label = $faction->name;
-		$object->shape = 'circularImage';
+		$object->shape = 'image';
         $object->image = $faction->image;
 		$nodes[] = $object; # add node
 		
@@ -312,8 +311,23 @@ class RelationsController extends BaseController
 		$object->to = $fractionId;
 		$edges[] = $object; # add to edge
 		
-		
-		return ['nodes' => $nodes, 'edges' => $edges, 'options' => $this->defaultOptions];
+		$options = [
+            'layout' => [
+                'hierarchical' => [
+					'enabled'=> true,
+					'levelSeparation' => 150,
+					'nodeSpacing' => 1000,
+					'treeSpacing' => 200,
+					'blockShifting' => true,
+					'edgeMinimization' => true,
+					'parentCentralization' => true,
+                    'direction' => "DU",
+					'sortMethod' => "directed"
+                ]
+            ]
+        ];
+		//font: '24px'
+		return ['nodes' => $nodes, 'edges' => $edges, 'options' => array_replace($this->defaultOptions, $options)];
 	}
 
     public function faction($id)
