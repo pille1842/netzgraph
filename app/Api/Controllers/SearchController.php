@@ -28,6 +28,14 @@ class SearchController extends BaseController
             $personCollection = $personCollection->merge($persons);
         }
 
+        $personCollection = $personCollection->keyBy('id');
+        $personCollection->each(function ($person) use (&$personCollection, $request)  {
+            if (strtolower($person->firstname.' '.trim($person->peerage.' '.$person->lastname)) == strtolower($request->input('q'))) {
+                $personCollection->forget($person->id);
+                $personCollection->prepend($person);
+            }
+        });
+
         $factionCollection = new \Illuminate\Database\Eloquent\Collection;
 
         foreach ($arrSearch as $search) {
