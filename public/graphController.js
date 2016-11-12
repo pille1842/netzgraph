@@ -27,6 +27,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
     $scope.init = function () {
 
+		$scope.target = ["person"]
         var jsonNodes = 0;
         var jsonEdges = 0;
         $http.get('/api/relations/factions').success(function (data, status, headers, config) {
@@ -101,5 +102,31 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 	$scope.test = function() {
 		$scope.hide = false
 	}
+	
+	$scope.onPersonClicked = function() {
+		$scope.target = ["person"]
+		document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Search Person ...")
+	}
+	
+	$scope.onReligionClicked = function() {
+		$scope.target = ["religion"]
+		document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Search Religion ...")
+	}
+	
+	$scope.onProfessionClicked = function() {
+		$scope.target = ["profession"]
+		document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Search Profession ...")
+	}
+	
+	$scope.onTitleClicked = function() {
+		$scope.target = ["title"]
+		document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Search Title ...")
+	}
+	
+	
 	
 }]);
