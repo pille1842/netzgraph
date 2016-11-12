@@ -16,7 +16,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
                 document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
             });
             $scope.network.once("stabilizationIterationsDone", function () {
-                document.getElementById("mynetwork").style.display = 'inline-block'
+                document.getElementById("mynetwork").style.display = 'inherit'
                 document.getElementById('text').innerHTML = '100%';
                 document.getElementById('bar').style.width = '496px';
                 document.getElementById('loadingBar').style.opacity = 0;
