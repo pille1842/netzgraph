@@ -48,14 +48,14 @@ class SearchController extends BaseController
 
         foreach ($factionCollection as $faction) {
             $data[] = [
-                'url' => '/#/faction/'.$faction->id,
+                'url' => '/api/relations/faction/'.$faction->id,
                 'caption' => 'Fraktion '.$faction->name
             ];
         }
 
         foreach ($personCollection as $person) {
             $data[] = [
-                'url' => '/#/person/'.$person->id,
+                'url' => '/api/relations/person/'.$person->id,
                 'caption' => $person->firstname.' '.trim($person->peerage.' '.$person->lastname).' ('.$person->faction->name.')'
             ];
         }
