@@ -9,7 +9,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Bare - Start Bootstrap Template</title>
+	<title>Bundesgraph</title>
 
 	<!-- Bootstrap Core CSS -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.17.0/vis.min.js"> </script>
