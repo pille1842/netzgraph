@@ -20,7 +20,7 @@
 
 	<script type="text/javascript" src="./graphController.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.17.0/vis.min.css" rel="stylesheet" type="text/css" />
-
+    <link href="./style.css" rel="stylesheet" type="text/css" />
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,7 +29,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-	<style type="text/css">
+<!--	<style type="text/css">
 		.container {
 			min-height: 100%;
 			overflow: hidden
@@ -112,12 +112,44 @@
             background: rgb(0, 173, 246); /* Old browsers */
             box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
         }
-	</style>
+
+        		
+		.dropdown {
+			position: relative;
+			display: inline-block;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #f9f9f9;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			padding: 12px 16px;
+		}
+
+		.dropdown-content {
+			display: block;
+		}
+
+        	.btn-link{
+		  border:none;
+		  outline:none;
+		  background:none;
+		  cursor:pointer;
+		  color:#0000EE;
+		  padding:0;
+		  text-decoration:underline;
+		  font-family:inherit;
+		  font-size:inherit;
+		}
+	</style>-->
 
 
 </head>
 
 <body <div ng-app="graph">
+<div ng-controller='graphCtrl'>
 	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 
 		<div class="navbar-header">
@@ -142,13 +174,19 @@
 								<button ng-href='#here' ng-click='search()' class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 							</div>
 						</div>
+<!--aa-->
+                        		
+						<div class="col-sm-10 col-md-10">
+						<div class="dropdown-content" style="width:99%;", id="dropdownId">
+                            
+                        </div>
+                        </div>
 					</div>
 				</form>
 			</div>
 
 		</div>
 	</div>
-	<div ng-controller='graphCtrl'>
 		<div data-ng-init="init()">
 
 			<div id="loadingBar">
