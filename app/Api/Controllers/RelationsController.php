@@ -26,7 +26,10 @@ class RelationsController extends BaseController
         'clickToUse' => false,
         'layout' => [
             'improvedLayout' => true,
-            'randomSeed' => 2
+            'randomSeed' => 2,
+			'hierarchical' => [
+				'enabled'=> false
+			]
         ]
     ];
 
