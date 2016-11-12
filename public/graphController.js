@@ -90,34 +90,38 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
 
     $scope.search = function () {
-        var result = [
-            { "caption": "Angela Merkel", "url": "/person/test" },
-            { "caption": "Horst Seehoger", "url": "/person/test111" },
-            { "caption": "Peter Altmaier", "url": "/person/test567" },
-            { "caption": "Klaus Juncker", "url": "/person/test123" }
-        ]
+        var data = {
 
-        for (i in result) {
+        }        
+
+        $http.get('/api/relations/factions', data).success(function (data, status, headers, config) {
+            var result = data;
+
+            for (i in result) {
 
 
-            var my_form = document.createElement("FORM")
-            my_form.method = "GET"
-            my_form.action = "person-php"
+                var my_form = document.createElement("FORM")
+                my_form.method = "GET";
+                my_form.action = "person-php";
 
-            my_btn = document.createElement("BUTTON")
-            my_btn.setAttribute("class", "btn-link")
-            my_btn.setAttribute("type", "submit")
-            my_btn.setAttribute("name", "name_test")
-            my_btn.setAttribute("value", "value_test")
+                my_btn = document.createElement("BUTTON")
+                my_btn.setAttribute("class", "btn-link")
+                my_btn.setAttribute("type", "submit")
+                my_btn.setAttribute("name", "name_test")
+                my_btn.setAttribute("value", "value_test")
 
-            my_text = document.createTextNode(result[i].caption)
-            my_btn.appendChild(my_text)
+                my_text = document.createTextNode(result[i].caption)
+                my_btn.appendChild(my_text)
 
-            my_form.appendChild(my_btn)
+                my_form.appendChild(my_btn)
 
-            document.getElementById("dropdownId").appendChild(my_form);
+                document.getElementById("dropdownId").appendChild(my_form);
 
+            }
         }
     }
+              
+        
+    
 }]);
 
