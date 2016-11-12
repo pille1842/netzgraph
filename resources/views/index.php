@@ -169,7 +169,7 @@
 
 						<div class="input-group" style="width:100%;">
 
-							<input ng-model="searchfield" type="text" class="form-control" placeholder="Search" name="/api/search?q=" id="srch-term">
+							<input ng-model="searchfield" type="text" class="form-control" placeholder="Search" name="/api/search?q=" id="srch-term" autocomplete="off">
 							<div class="input-group-btn">
 								<button ng-href='#here' ng-click='search()' class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 							</div>
