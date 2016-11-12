@@ -135,7 +135,7 @@ class RelationsController extends BaseController
 		$object->to = $baseCommitteeId;
 		$edges[] = $object; # add to edge
 		
-		"""
+		/*
 		# create nodes for each committee
 		foreach($committees as $committee) {
 			$role = $committee->pivot->role;
@@ -274,7 +274,7 @@ class RelationsController extends BaseController
 		# ----- add fraction ----------
 		# id at top
 		
-		"""
+		*/
 		return ['nodes' => $nodes, 'edges' => $edges, 'options' => $this->defaultOptions];
 	}
 
