@@ -118,6 +118,7 @@
 </head>
 
 <body <div ng-app="graph">
+<div ng-controller='graphCtrl'>
 	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 
 		<div class="navbar-header">
@@ -148,7 +149,6 @@
 
 		</div>
 	</div>
-	<div ng-controller='graphCtrl'>
 		<div data-ng-init="init()">
 
 			<div id="loadingBar">
