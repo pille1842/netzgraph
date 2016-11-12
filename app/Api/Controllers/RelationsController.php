@@ -17,7 +17,7 @@ class RelationsController extends BaseController
         foreach ($persons as $person) {
         	$object = new \stdClass();
         	$object->id = $person->id;
-        	$object->label = $person->firstname.' '.$person->lastname;
+        	$object->label = $person->firstname.' '.trim($person->peerage.' '.$person->lastname);
         	$object->shape = 'circularImage';
         	$object->image = $person->image;
 
