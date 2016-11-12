@@ -92,18 +92,24 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
     $scope.search = function () {
         var data = {
 
-        }        
+        }
 
-        $http.get('/api/relations/factions', data).success(function (data, status, headers, config) {
+        $http.get('/api/search/?q=' + $scope.searchfield, data).success(function (data, status, headers, config) {
             var result = data;
 
+            var searchResultsContainer = document.getElementById("dropdownId");
+            while (searchResultsContainer.firstChild) {
+                searchResultsContainer.removeChild(searchResultsContainer.firstChild);
+            }
             for (i in result) {
 
 
                 var my_form = document.createElement("FORM")
-                my_form.method = "GET";
-                my_form.action = "person-php";
 
+
+                my_form.method = "GET";
+                my_form.action = "/api/person/";
+/*a*/
                 my_btn = document.createElement("BUTTON")
                 my_btn.setAttribute("class", "btn-link")
                 my_btn.setAttribute("type", "submit")
@@ -114,14 +120,13 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
                 my_btn.appendChild(my_text)
 
                 my_form.appendChild(my_btn)
-
-                document.getElementById("dropdownId").appendChild(my_form);
+                searchResultsContainer.appendChild(my_form)
 
             }
-        }
+        })
     }
-              
-        
-    
+
+
+
 }]);
 
