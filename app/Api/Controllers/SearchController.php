@@ -15,7 +15,7 @@ class SearchController extends BaseController
         }
 
         $arrSearch = explode(' ', $request->input('q'));
-        $personCollections = array();
+        $personCollection = new \Illuminate\Database\Eloquent\Collection;
 
         foreach ($arrSearch as $search) {
             $search  = '%'.$search.'%';
@@ -25,27 +25,30 @@ class SearchController extends BaseController
                          ->orWhere('title', 'LIKE', $search)
                          ->orWhere('profession', 'LIKE', $search)
                          ->get();
-            $personCollections[] = $persons;
+            $personCollection = $personCollection->merge($persons);
         }
 
-        $factions = Faction::where('name', 'LIKE', $search)->get();
+        $factionCollection = new \Illuminate\Database\Eloquent\Collection;
+
+        foreach ($arrSearch as $search) {
+            $factions = Faction::where('name', 'LIKE', $search)->get();
+            $factionCollection = $factionCollection->merge($factions);
+        }
 
         $data = [];
 
-        foreach ($factions as $faction) {
+        foreach ($factionCollection as $faction) {
             $data[] = [
                 'url' => '/#/faction/'.$faction->id,
                 'caption' => 'Fraktion '.$faction->name
             ];
         }
 
-        foreach ($personCollections as $persons) {
-            foreach ($persons as $person) {
-                $data[] = [
-                    'url' => '/#/person/'.$person->id,
-                    'caption' => $person->firstname.' '.trim($person->peerage.' '.$person->lastname).' ('.$person->faction->name.')'
-                ];
-            }
+        foreach ($personCollection as $person) {
+            $data[] = [
+                'url' => '/#/person/'.$person->id,
+                'caption' => $person->firstname.' '.trim($person->peerage.' '.$person->lastname).' ('.$person->faction->name.')'
+            ];
         }
 
         return $data;
