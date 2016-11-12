@@ -3,6 +3,8 @@
 namespace App\Api\Controllers;
 
 use Illuminate\Http\Request;
+use App\Person;
+use App\Faction;
 
 class SearchController extends BaseController
 {
@@ -37,5 +39,7 @@ class SearchController extends BaseController
         		'caption' => $person->firstname.' '.trim($person->peerage.' '.$person->lastname).' ('.$person->faction->name.')'
         	];
         }
+
+        return $data;
     }
 }
