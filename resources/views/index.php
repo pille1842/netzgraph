@@ -36,7 +36,7 @@
 <body ng-app="graph">
 <div ng-controller='graphCtrl'>
 	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
-		<a href="#" class="navbar-left"><img src="/path/to/image.png"></a>
+		
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -44,7 +44,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-			<a class="navbar-brand" rel="home" href="/" title="Bundesgraph">Bundesgraph</a>
+			<a href="#" class="navbar-left"><img src="logo.png"></a>
 		</div>
 
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
