@@ -15,7 +15,6 @@ class EarningTransformer extends TransformerAbstract
 	{
 		return [
 			'person_id' => (int) $earning->person_id,
-			'earninglevel_id' => (int) $earning->earninglevel_id,
 			'name' => $earning->name
 		];
 	}
