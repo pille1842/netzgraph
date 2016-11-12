@@ -14,30 +14,38 @@ class SearchController extends BaseController
             return $this->response->errorBadRequest();
         }
 
-        $search = '%'.str_replace(' ', '%', $request->input('q')).'%';
+        $arrSearch = explode(' ', $request->input('q'));
+        $personCollections = array();
 
-        $persons = Person::where('firstname', 'LIKE', $search)
-        				 ->orWhere('lastname', 'LIKE', $search)
-        				 ->orWhere('peerage', 'LIKE', $search)
-        				 ->orWhere('title', 'LIKE', $search)
-        				 ->get();
+        foreach ($arrSearch as $search) {
+            $search  = '%'.$search.'%';
+            $persons = Person::where('firstname', 'LIKE', $search)
+                         ->orWhere('lastname', 'LIKE', $search)
+                         ->orWhere('peerage', 'LIKE', $search)
+                         ->orWhere('title', 'LIKE', $search)
+                         ->orWhere('profession', 'LIKE', $search)
+                         ->get();
+            $personCollections[] = $persons;
+        }
 
         $factions = Faction::where('name', 'LIKE', $search)->get();
 
         $data = [];
 
         foreach ($factions as $faction) {
-        	$data[] = [
-        		'url' => '/#/faction/'.$faction->id,
-        		'caption' => 'Fraktion '.$faction->name
-        	];
+            $data[] = [
+                'url' => '/#/faction/'.$faction->id,
+                'caption' => 'Fraktion '.$faction->name
+            ];
         }
 
-        foreach ($persons as $person) {
-        	$data[] = [
-        		'url' => '/#/person/'.$person->id,
-        		'caption' => $person->firstname.' '.trim($person->peerage.' '.$person->lastname).' ('.$person->faction->name.')'
-        	];
+        foreach ($personCollections as $persons) {
+            foreach ($persons as $person) {
+                $data[] = [
+                    'url' => '/#/person/'.$person->id,
+                    'caption' => $person->firstname.' '.trim($person->peerage.' '.$person->lastname).' ('.$person->faction->name.')'
+                ];
+            }
         }
 
         return $data;
