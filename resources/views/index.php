@@ -169,7 +169,7 @@
 
 						<div class="input-group" style="width:100%;">
 
-							<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+							<input ng-model="somefield" type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
 							<div class="input-group-btn">
 								<button ng-href='#here' ng-click='search()' class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 							</div>
@@ -177,7 +177,7 @@
 <!--aa-->
                         		
 						<div class="col-sm-10 col-md-10">
-						<div class="dropdown-content" style="width:99%;", id="dropdownId">
+						<div ng-show="!somefield.length" class="dropdown-content" style="width:99%;", id="dropdownId">
                             
                         </div>
                         </div>
