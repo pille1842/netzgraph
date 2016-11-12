@@ -75,18 +75,20 @@ class RelationsController extends BaseController
 		
 		$committeeIdCounter = 1000;
 		
-		$personId = 0;
-		$baseCommitteeId = 1; # könnte auch als counter gestaltet werden der immer hochzählt so das keine große statische nummer genutzt werden muss
-		$OrdentlichesMitgliedId = 2;
-		$StellvertretendesMitgliedId = 3;
+		$fractionId = 0;
+		$personId = 1;
+		$baseCommitteeId = 2; # könnte auch als counter gestaltet werden der immer hochzählt so das keine große statische nummer genutzt werden muss
+		$OrdentlichesMitgliedId = 3;
+		$StellvertretendesMitgliedId = 4;
 		
-		$baseEarningLevelNode = 4;
+		$baseEarningLevelNode = 5;
 		$earningLevelIdCounter = 5000; # from 5000 - 5009 if all earning levels are used
 		$earningNameCounter = 5010; # from 5010 - 6000
 		
+		$baseStateId = 6000;
 		$stateId = 6001;
-		$districtId = 6002;
-		$fractionId = 6003;
+		$baseDistrictId = 6002;
+		$districtId = 6003;
 		
 		$nodes = [];
 		$edges = [];
@@ -219,7 +221,6 @@ class RelationsController extends BaseController
 				# add 1 to the counter
 				$earningNameCounter = $earningNameCounter + 1;
 			}
-			
 			# add 1 to the counter
 			$earningLevelIdCounter = $earningLevelIdCounter + 1;
 		}
@@ -227,9 +228,18 @@ class RelationsController extends BaseController
 		
 		# ----- add state ---------
 		
-		# add bundesland node
+		# add base bundesland node
+		$object = new \stdClass();
+		$object->id = $baseStateId;
+		$object->label = "Bundesland";
+		$nodes[] = $object; # add node
 		
-		# id at top
+		# add relation to person
+		$object = new \stdClass();
+		$object->from = $baseStateId;
+		$object->to = $personId;
+		$edges[] = $object; # add to edge
+		
 		$state = $person->state;
 	
 		# create state node
@@ -242,14 +252,24 @@ class RelationsController extends BaseController
 		
 		# add relation to person
 		$object = new \stdClass();
-		$object->from = $personId;
-		$object->to = $stateId;
+		$object->from = $stateId;
+		$object->to = $baseStateId;
 		$edges[] = $object; # add to edge
 		
 		
 		# ----- add districts ----------
 		
-		# add district node
+		# add base district node
+		$object = new \stdClass();
+		$object->id = $baseDistrictId;
+		$object->label = "Wahlkreis";
+		$nodes[] = $object; # add node
+		
+		# add relation to person
+		$object = new \stdClass();
+		$object->from = $baseDistrictId;
+		$object->to = $personId;
+		$edges[] = $object; # add to edge
 		
 		# id at top
 		$district = $person->district;
@@ -270,15 +290,29 @@ class RelationsController extends BaseController
 		
 		# add relation to person
 		$object = new \stdClass();
-		$object->from = $personId;
-		$object->to = $districtId;
+		$object->from = $districtId;
+		$object->to = $baseDistrictId;
 		$edges[] = $object; # add to edge
 		
 		
 		# ----- add fraction ----------
-		# id at top
+		# add fraction node
+		$faction = $person->faction;
 		
-		*/
+		$object = new \stdClass();
+		$object->id = $fractionId;
+		$object->label = $faction->name;
+		$object->shape = 'circularImage';
+        $object->image = $faction->image;
+		$nodes[] = $object; # add node
+		
+		# add relation to person
+		$object = new \stdClass();
+		$object->from = $personId;
+		$object->to = $fractionId;
+		$edges[] = $object; # add to edge
+		
+		
 		return ['nodes' => $nodes, 'edges' => $edges, 'options' => $this->defaultOptions];
 	}
 
