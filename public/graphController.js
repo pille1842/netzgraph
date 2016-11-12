@@ -104,19 +104,21 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             for (i in result) {
 
 
-                var my_form = document.createElement("a");
-
+                var my_form = document.createElement("a"); 
                 my_form.setAttribute("href", result[i].url)
-
+                my_form.setAttribute("ng-click", "alert(" + result.id +")")
                 my_text = document.createTextNode(result[i].caption)
                 my_form.appendChild(my_text)
-                
+
                 searchResultsContainer.appendChild(my_form)
 
             }
         })
     }
 
+    $scope.alert = function(data){
+        alert(data);
+    }
 
 
 }]);
