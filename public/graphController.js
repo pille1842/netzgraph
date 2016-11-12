@@ -80,7 +80,10 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             while (searchResultsContainer.firstChild) {
                 searchResultsContainer.removeChild(searchResultsContainer.firstChild);
             }
-            for (i in result) {
+
+               $scope.results = result;
+
+     /*       for (i in result) {
 
 
                 var my_form = document.createElement("a"); 
@@ -94,7 +97,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
                 searchResultsContainer.appendChild(my_form)
 
-            }
+            }*/
         })
     }
 
