@@ -59,6 +59,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             }
 
             $scope.results = result
+			$scope.hide = true
         })
     }
 
@@ -74,5 +75,9 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             loadProgressBar();
         })
     }
-
+	
+	$scope.test = function() {
+		$scope.hide = false
+	}
+	
 }]);
