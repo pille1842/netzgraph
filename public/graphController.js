@@ -106,7 +106,8 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
                 var my_form = document.createElement("a"); 
                 my_form.setAttribute("href", result[i].url)
-                my_form.setAttribute("ng-click", "alert(" + result.id +")")
+                my_form.setAttribute("ng-href",'#here')
+                my_form.setAttribute("ng-click", "alert(1)")
                 my_text = document.createTextNode(result[i].caption)
                 my_form.appendChild(my_text)
 
