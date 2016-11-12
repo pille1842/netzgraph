@@ -15,7 +15,7 @@ class Person extends Model
 
     public function committees()
     {
-    	return $this->belongsToMany('App\Committee');
+    	return $this->belongsToMany('App\Committee')->withPivot('role');
     }
 
     public function district()
