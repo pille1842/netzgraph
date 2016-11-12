@@ -14,30 +14,41 @@ class SearchController extends BaseController
             return $this->response->errorBadRequest();
         }
 
-        $search = '%'.str_replace(' ', '%', $request->input('q')).'%';
+        $arrSearch = explode(' ', $request->input('q'));
+        $personCollection = new \Illuminate\Database\Eloquent\Collection;
 
-        $persons = Person::where('firstname', 'LIKE', $search)
-        				 ->orWhere('lastname', 'LIKE', $search)
-        				 ->orWhere('peerage', 'LIKE', $search)
-        				 ->orWhere('title', 'LIKE', $search)
-        				 ->get();
+        foreach ($arrSearch as $search) {
+            $search  = '%'.$search.'%';
+            $persons = Person::where('firstname', 'LIKE', $search)
+                         ->orWhere('lastname', 'LIKE', $search)
+                         ->orWhere('peerage', 'LIKE', $search)
+                         ->orWhere('title', 'LIKE', $search)
+                         ->orWhere('profession', 'LIKE', $search)
+                         ->get();
+            $personCollection = $personCollection->merge($persons);
+        }
 
-        $factions = Faction::where('name', 'LIKE', $search)->get();
+        $factionCollection = new \Illuminate\Database\Eloquent\Collection;
+
+        foreach ($arrSearch as $search) {
+            $factions = Faction::where('name', 'LIKE', $search)->get();
+            $factionCollection = $factionCollection->merge($factions);
+        }
 
         $data = [];
 
-        foreach ($factions as $faction) {
-        	$data[] = [
-        		'url' => '/#/faction/'.$faction->id,
-        		'caption' => 'Fraktion '.$faction->name
-        	];
+        foreach ($factionCollection as $faction) {
+            $data[] = [
+                'url' => '/#/faction/'.$faction->id,
+                'caption' => 'Fraktion '.$faction->name
+            ];
         }
 
-        foreach ($persons as $person) {
-        	$data[] = [
-        		'url' => '/#/person/'.$person->id,
-        		'caption' => $person->firstname.' '.trim($person->peerage.' '.$person->lastname).' ('.$person->faction->name.')'
-        	];
+        foreach ($personCollection as $person) {
+            $data[] = [
+                'url' => '/#/person/'.$person->id,
+                'caption' => $person->firstname.' '.trim($person->peerage.' '.$person->lastname).' ('.$person->faction->name.')'
+            ];
         }
 
         return $data;
