@@ -30,12 +30,14 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 		$scope.target = ["person"]
         var jsonNodes = 0;
         var jsonEdges = 0;
+        var nodes = 0;
+        var edges = 0;
         $http.get('/api/relations/factions').success(function (data, status, headers, config) {
             jsonNodes = data.nodes;
             jsonEdges = data.edges;
             var options = data.options;
-            var nodes = new vis.DataSet(jsonNodes);
-            var edges = new vis.DataSet(jsonEdges);
+            nodes = new vis.DataSet(jsonNodes);
+            edges = new vis.DataSet(jsonEdges);
             var container = document.getElementById('mynetwork');
             var data = {
                 nodes: nodes,
@@ -48,8 +50,9 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
             $scope.network.on("click", function (params) {
                 if (params.nodes.length > 0) {
-                    id = params.nodes[0]
-                    url = jsonNodes[id].url
+         /*           nodes.get(params.nodes[0]);
+                    id = params.nodes[0]*/
+                    url = nodes.get(params.nodes[0]).url
                     if (url.length > 0) {
                         $http.get(url).success(function (data, status, headers, config){
                             jsonNodes = data.nodes;
