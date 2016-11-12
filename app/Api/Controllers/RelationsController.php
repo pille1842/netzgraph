@@ -211,8 +211,7 @@ class RelationsController extends BaseController
         foreach ($factions as $faction) {
             $object = new \stdClass();
             $object->id = $faction->id;
-            $object->label = $faction->name;
-            $object->shape = 'circularImage';
+            $object->shape = 'image';
             $object->image = $faction->image;
 
             $ids[] = $object->id;
@@ -228,6 +227,14 @@ class RelationsController extends BaseController
             $nodes[] = $object;
         }
 
-        return ['nodes' => $data, 'edges' => $nodes, 'options' => $this->defaultOptions];
+        $options = [
+            'physics' => [
+                'barnesHut' => [
+                    'gravitationalConstant' => -10000
+                ]
+            ]
+        ];
+
+        return ['nodes' => $data, 'edges' => $nodes, 'options' => array_merge($this->defaultOptions, $options)];
     }
 }
