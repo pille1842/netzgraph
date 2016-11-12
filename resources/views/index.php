@@ -112,6 +112,18 @@
             background: rgb(0, 173, 246); /* Old browsers */
             box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
         }
+
+        	.btn-link{
+		  border:none;
+		  outline:none;
+		  background:none;
+		  cursor:pointer;
+		  color:#0000EE;
+		  padding:0;
+		  text-decoration:underline;
+		  font-family:inherit;
+		  font-size:inherit;
+		}
 	</style>
 
 
