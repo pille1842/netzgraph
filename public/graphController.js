@@ -3,7 +3,8 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
     
     loadProgressBar = function(){
-                setTimeout(function () { document.getElementById('loadingBar').style.display = 'show'; }, 500);
+                document.getElementById('loadingBar').style.opacity = 100;
+               setTimeout(function () { document.getElementById('loadingBar').style.display = 'show'; }, 500);
                 $scope.network.on("stabilizationProgress", function (params) {
                 var maxWidth = 496;
                 var minWidth = 20;
