@@ -153,6 +153,67 @@ class RelationsController extends BaseController
 				$edges[] = $object; # add to edge
 			}
 		}
+		
+				# ------- earning levels and earnings -----------
+		$baseEarningLevelNode = 5003;
+		$earningLevelIdCounter = 5004; # from 5004 - 5014 if all earning levels are used
+		$earningNameCounter = 5015; # from 5015 - 6000
+		 
+		# create base earning level node
+		$object = new \stdClass();
+        $object->id = $baseEarningLevelNode;
+        $object->label = 'Nebeneinkünfte';
+		$nodes[] = $object; # add node
+		
+		# create relation from person to base earning level node
+		$object = new \stdClass();
+		$object->from = $personId;
+		$object->to = $baseEarningLevelNode;
+		$edges[] = $object; # add to edge
+ 
+		
+		$earnings = $person->earnings;
+		$arrEarningNodes = [];		
+		foreach ($earnings as $earning) {
+			$arrEarningNodes[$earning->earninglevel->value][] = $earning->name;
+		}
+		
+		foreach($arrEarningNodes as $earninglevelName => $earningNames) {
+			
+			# create earning level node
+			$object = new \stdClass();
+			$object->id = $earningLevelIdCounter;
+			$object->label = $earninglevelName;
+			$nodes[] = $object; # add node
+			
+			# create relation to base earning level node
+			$object = new \stdClass();
+			$object->from = $baseEarningLevelNode;
+			$object->to = $earningLevelIdCounter;
+			$edges[] = $object; # add to edge
+			
+			# go through all names that are in the same earning level
+			foreach($earningNames as $earningName) {
+				# add earning name node
+				$object = new \stdClass();
+				$object->id = $earningNameCounter;
+				$object->label = $earningName;
+				$nodes[] = $object; # add node
+				
+				# add relation to earning level
+				$object = new \stdClass();
+				$object->from = $earningLevelIdCounter;
+				$object->to = $earningNameCounter;
+				$edges[] = $object; # add to edge
+				
+				# add 1 to the counter
+				$earningNameCounter = $earningNameCounter + 1;
+			}
+			
+			# add 1 to the counter
+			$earningLevelIdCounter = $earningLevelIdCounter + 1;
+		}
+		
 		return ['nodes' => $nodes, 'edges' => $edges, 'options' => $this->defaultOptions];
 	}
 

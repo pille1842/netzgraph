@@ -1,8 +1,8 @@
 var appModule = angular.module('graph', [])
-   .config(['$routeProvider', function($routeProvider) {
+/*   .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('#/person/:id', {controller: 'searchCtrl'});
     }])
-
+*/
 
 appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($scope, $http, $compile) {
 
@@ -106,7 +106,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
 
 }]);
-
+/*
  appModule.controller('searchCtrl', function ($scope, $routeParams) {
         var init = function () {
              alert(data);
@@ -114,4 +114,4 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
         // fire on controller loaded
         init();
-    });
+    });*/
