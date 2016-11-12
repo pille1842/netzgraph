@@ -35,7 +35,7 @@
 
 <body ng-app="graph" >
 <div ng-controller='graphCtrl' ng-click="test()">
-	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+	<div class="navbar navbar-inverse navbar-static-top  navbar-fixed-top" role="navigation">
 		
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
