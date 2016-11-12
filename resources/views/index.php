@@ -62,9 +62,14 @@
 
                         		
 						<div class="col-sm-10 col-md-10">
-						<div ng-show="searchfield.length" class="dropdown-content" style="width:99%;" id="dropdownId">
-                            
-                        </div>
+							<div ng-show="searchfield.length" class="dropdown-content" style="width:99%;" id="dropdownId">
+
+							</div>
+							<ul>
+								<li ng-repeat="(key,val) in results">
+									<a ng-click="setResult(val.url)">{{ val.caption }}</a>
+								</li>
+							</ul>
                         </div>
 					</div>
 				</form>
