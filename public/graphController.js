@@ -19,7 +19,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
                 document.getElementById('bar').style.width = '496px';
                 document.getElementById('loadingBar').style.opacity = 0;
                 // really clean the dom element
-                setTimeout(function () { document.getElementById('loadingBar').style.display = 'none'; }, 500);
+                //setTimeout(function () { document.getElementById('loadingBar').style.display = 'none'; }, 500);
             });
     }
 
