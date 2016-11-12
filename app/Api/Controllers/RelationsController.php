@@ -298,6 +298,7 @@ class RelationsController extends BaseController
 		# ----- add faction ----------
 		# add fraction node
 		$faction = $person->faction;
+        $fractionId = $faction->id;
 		
 		$object = new \stdClass();
 		$object->id = $fractionId;
