@@ -39,6 +39,7 @@ class SearchController extends BaseController
         $factionCollection = new \Illuminate\Database\Eloquent\Collection;
 
         foreach ($arrSearch as $search) {
+            $search = '%'.$search.'%';
             $factions = Faction::where('name', 'LIKE', $search)->get();
             $factionCollection = $factionCollection->merge($factions);
         }
