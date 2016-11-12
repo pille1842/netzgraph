@@ -88,10 +88,10 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
  }
 
+
    $scope.search = function() {
 
     alert("Hello! I am an alert box!!");
   }
-
 }]);
 
