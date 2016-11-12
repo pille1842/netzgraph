@@ -58,7 +58,11 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             }
 
             $scope.results = result
-			$scope.hide = true
+			if (result.length == 0) {
+				$scope.hide = false
+			} else {
+				$scope.hide = true
+			}
         })
     }
 
