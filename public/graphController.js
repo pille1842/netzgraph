@@ -104,22 +104,13 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             for (i in result) {
 
 
-                var my_form = document.createElement("FORM")
+                var my_form = document.createElement("a");
 
-
-                my_form.method = "GET";
-                my_form.action = "/api/person/";
-/*a*/
-                my_btn = document.createElement("BUTTON")
-                my_btn.setAttribute("class", "btn-link")
-                my_btn.setAttribute("type", "submit")
-                my_btn.setAttribute("name", "name_test")
-                my_btn.setAttribute("value", "value_test")
+                my_form.setAttribute("href", result[i].url)
 
                 my_text = document.createTextNode(result[i].caption)
-                my_btn.appendChild(my_text)
-
-                my_form.appendChild(my_btn)
+                my_form.appendChild(my_text)
+                
                 searchResultsContainer.appendChild(my_form)
 
             }
