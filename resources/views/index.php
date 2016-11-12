@@ -54,7 +54,7 @@
 
 						<div class="input-group" style="width:100%;">
 
-							<input ng-model="searchfield" type="text" class="form-control" placeholder="Search" name="/api/search?q=" id="srch-term" autocomplete="off">
+							<input ng-model="searchfield" type="text" class="form-control" placeholder="Search Person ..." name="/api/search?q=" id="srch-term" autocomplete="off">
 							<div class="input-group-btn">
 								<button ng-href='#here' ng-click='search()' class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 							</div>
@@ -72,7 +72,9 @@
 							</ul>
                         </div>
 					</div>
+
 				</form>
+				
 			</div>
 
 		</div>
@@ -100,6 +102,7 @@
 	<!-- Bootstrap Core JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+	
 </body>
 
 </html>
