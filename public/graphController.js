@@ -3,28 +3,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
     $scope.init = function () {
 
-        var options = {
-            autoResize: true,
-            height: '100%',
-            width: '100%',
-            locale: 'de',
-            nodes: {
-                borderWidth: 4,
-                size: 30,
-                color: {
-                    border: 'lightgray',
-                }
-            },
-            edges: {
-                color: 'lightgray',
-
-            },
-            clickToUse: false,
-            layout: {
-                improvedLayout: true,
-                randomSeed: 2
-            }
-        }
+        
 
 
 
@@ -37,7 +16,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
         $http.get('/api/relations/factions', data).success(function (data, status, headers, config) {
             jsonNodes = data.nodes;
             jsonEdges = data.edges;
-
+            var options = data.options;
             // create an array with nodes
             var nodes = new vis.DataSet(jsonNodes);
 
@@ -96,7 +75,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
         $http.get('/api/search/?q=' + $scope.searchfield, data).success(function (data, status, headers, config) {
             var result = data;
-
+            
             var searchResultsContainer = document.getElementById("dropdownId");
             while (searchResultsContainer.firstChild) {
                 searchResultsContainer.removeChild(searchResultsContainer.firstChild);
