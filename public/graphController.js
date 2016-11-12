@@ -35,8 +35,8 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
         var jsonNodes = 0;
         var jsonEdges = 0;
         $http.get('/api/relations/factions', data).success(function (data, status, headers, config) {
-            jsonNodes = data.data;
-            jsonEdges = data.nodes;
+            jsonNodes = data.nodes;
+            jsonEdges = data.edges;
 
             // create an array with nodes
             var nodes = new vis.DataSet(jsonNodes);
