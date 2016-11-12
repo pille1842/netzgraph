@@ -20,7 +20,7 @@
 
 	<script type="text/javascript" src="./graphController.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.17.0/vis.min.css" rel="stylesheet" type="text/css" />
-
+    <link href="./style.css" rel="stylesheet" type="text/css" />
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,7 +29,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-	<style type="text/css">
+<!--	<style type="text/css">
 		.container {
 			min-height: 100%;
 			overflow: hidden
@@ -113,6 +113,25 @@
             box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
         }
 
+        		
+		.dropdown {
+			position: relative;
+			display: inline-block;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #f9f9f9;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			padding: 12px 16px;
+		}
+
+		.dropdown-content {
+			display: block;
+		}
+
         	.btn-link{
 		  border:none;
 		  outline:none;
@@ -124,7 +143,7 @@
 		  font-family:inherit;
 		  font-size:inherit;
 		}
-	</style>
+	</style>-->
 
 
 </head>
