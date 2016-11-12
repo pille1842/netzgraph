@@ -63,7 +63,7 @@
                         		
 						<div class="col-sm-10 col-md-10">
 						<div ng-show="searchfield.length" class="dropdown-content" style="width:99%;" id="dropdownId">
-                            <a ng-repeat="x in records">{{x}}</h1>
+                            
                         </div>
                         </div>
 					</div>
