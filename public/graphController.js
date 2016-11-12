@@ -44,6 +44,22 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             loadProgressBar();
 
             $scope.network.on("click", function (params) {
+                if (params.nodes.length > 0) {
+                    id = params.nodes[0]
+                    url = jsonNodes[id].url
+                    if (url.length > 0) {
+                        $http.get(url).success(function (data, status, headers, config){
+                            jsonNodes = data.nodes;
+                            jsonEdges = data.edges;
+                            var options = data.options;
+                            var nodes = new vis.DataSet(jsonNodes);
+                            var edges = new vis.DataSet(jsonEdges);
+                            $scope.network.setData({nodes:nodes, edges:edges})
+                            $scope.network.setOptions(options);
+                            loadProgressBar();
+                        })
+                    }
+                }
             });
         })
     }
