@@ -7,6 +7,7 @@ use App\Person;
 use App\Faction;
 use App\State;
 use App\Earninglevel;
+use App\Committee;
 
 class RelationsController extends BaseController
 {
@@ -74,7 +75,7 @@ class RelationsController extends BaseController
         return ['nodes' => $data, 'edges' => $nodes, 'options' => $this->defaultOptions];
     }
 	
-		public function person($id)
+	public function person($id)
 	{
 		$person = Person::findOrFail($id);
 		$committees = $person->committees;
@@ -156,11 +157,13 @@ class RelationsController extends BaseController
 				$object = new \stdClass();
 				$object->id = $stellvertretenderCommitteeIdCounter;
 				$object->label = $committee->name;
+                $object->url = '/api/relations/committee/'.$committee->id;
 				$nodes[] = $object; # add not node
 			} else {
 				$object = new \stdClass();
 				$object->id = $ordentlicherCommitteeIdCounter;
 				$object->label = $committee->name;
+                $object->url = '/api/relations/committee/'.$committee->id;
 				$nodes[] = $object; # add not node
 			}
 			
@@ -643,5 +646,50 @@ class RelationsController extends BaseController
         $options = ['edges' => ['length' => 250]];
 
         return ['nodes' => $nodes, 'edges' => $edges, 'options' => array_replace($this->defaultOptions, $options)];
+    }
+
+    public function committee($id)
+    {
+        $committee = Committee::findOrFail($id);
+
+        $persons = $committee->persons;
+
+        $object = new \stdClass();
+        $object->id = 0;
+        $object->label = $committee->name;
+        $object->title = "<strong>".count($persons)." Abgeordnete</strong>";
+
+        $data[] = $object;
+
+        foreach ($persons as $person) {
+            $object = new \stdClass();
+            $object->id = $person->id;
+            $object->shape = 'circularImage';
+            $object->image = $person->image;
+            $object->label = $person->firstname.' '.trim($person->peerage.' '.$person->lastname);
+            $object->url = '/api/relations/person/'.$person->id;
+
+            $ids[] = $object->id;
+            $data[] = $object;
+        }
+
+        $nodes = [];
+        foreach ($ids as $id) {
+            $object = new \stdClass();
+            $object->from = $id;
+            $object->to = 0;
+
+            $nodes[] = $object;
+        }
+
+        $options = [
+            'physics' => [
+                'barnesHut' => [
+                    'gravitationalConstant' => -10000
+                ]
+            ]
+        ];
+
+        return ['nodes' => $data, 'edges' => $nodes, 'options' => array_replace($this->defaultOptions, $options)];
     }
 }
