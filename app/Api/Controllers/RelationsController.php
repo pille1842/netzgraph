@@ -584,7 +584,7 @@ class RelationsController extends BaseController
             $object = new \stdClass();
             $object->id = $earningCounter;
             $object->label = $earninglevels->find($earning->earninglevel_id)->value;
-            $object->title = "<strong>".$earning->earn_count."</strong>";
+            $object->title = "<strong>".$earning->earn_count." Quellen</strong>";
             $nodes[] = $object;
 
             $object = new \stdClass();
