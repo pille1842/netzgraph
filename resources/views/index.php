@@ -46,26 +46,41 @@
         </button>
 			<a href="/" class="navbar-left"><img src="logo.png"></a>
 		</div>
-
+		
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<div class="col-sm-9 col-md-9">
 				<form class="navbar-form " role="search">
 					<div class="form-group" style="width:100%;">
-
-						<div class="input-group" style="width:100%;">
+						<div class="dropdown">
+						  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							<span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						  <li class="dropdown-header">Search Scope</li>
+							<li ng-click="onPersonClicked()"><a href="#">Personen</a></li>
+							<li ng-click="onReligionClicked()"><a href="#">Religion</a></li>
+							<li ng-click="onProfessionClicked()"><a href="#">Beruf</a></li>
+							<li ng-click="onTitleClicked()"><a href="#">Titel</a></li>
+							<li role="separator" class="divider"></li>
+							<li ng-click="onFactionEarningsClicked()"><a href="#">Fraktion - Nebeneinkuenfte</a></li>
+							<li ng-click="onFactionProfessionClicked()"><a href="#">Fraktion - Beruf</a></li>
+							<li ng-Click="onFactionBirthdayClicked()"><a href="#">Fraktion - Geburtsjahr</a></li>
+						  </ul>
+						</div>
+						
+						<div class="input-group" style="width:75%;">
 
 							<input ng-model="searchfield" type="text" class="form-control" placeholder="Search Person ..." name="/api/search?q=" id="srch-term" autocomplete="off">
-							<div class="input-group-btn">
+							<div class="input-group-btn" style="padding-left: 4px;">
 								<button ng-href='#here' ng-click='search()' class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 							</div>
 						</div>
-
-                        		
+	
 						<div class="col-sm-10 col-md-10" class="dropdown">
 							<div ng-show="searchfield.length" style="width:99%;" id="dropdownId">
 
 							</div>
-							<ul ng-hide="!hide" class="dropdown-content" style="width:auto; list-style-type: none;">
+							<ul ng-hide="!hide" class="dropdown-content" style="width:auto; list-style-type: none; overflow-y: scroll">
 								<li ng-repeat="(key,val) in results"  >
 									<a ng-click="setResult(val.url)" >{{ val.caption }}</a>
 								</li>

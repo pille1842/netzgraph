@@ -14,27 +14,61 @@ class SearchController extends BaseController
             return $this->response->errorBadRequest();
         }
 
-        $arrSearch = explode(' ', $request->input('q'));
-        $personCollection = new \Illuminate\Database\Eloquent\Collection;
-
-        foreach ($arrSearch as $search) {
-            $search  = '%'.$search.'%';
-            $persons = Person::where('firstname', 'LIKE', $search)
-                         ->orWhere('lastname', 'LIKE', $search)
-                         ->orWhere('peerage', 'LIKE', $search)
-                         ->orWhere('title', 'LIKE', $search)
-                         ->orWhere('profession', 'LIKE', $search)
-                         ->get();
-            $personCollection = $personCollection->merge($persons);
-        }
-
-        $personCollection = $personCollection->keyBy('id');
-        $personCollection->each(function ($person) use (&$personCollection, $request)  {
-            if (strtolower($person->firstname.' '.trim($person->peerage.' '.$person->lastname)) == strtolower($request->input('q'))) {
-                $personCollection->forget($person->id);
-                $personCollection->prepend($person);
-            }
-        });
+		$arrSearchTypes = explode(',', $request->input('target'));
+		
+		# check if its the simple or complex relation
+		
+		
+		$personCollection = new \Illuminate\Database\Eloquent\Collection;
+		$arrSearch = explode(' ', $request->input('q'));
+		
+		foreach($arrSearchTypes as $arrSearchType) {
+			switch($arrSearchType) {
+				case "person":
+					foreach ($arrSearch as $search) {
+						$search  = '%'.$search.'%';
+						$persons = Person::where('firstname', 'LIKE', $search)
+									 ->orWhere('lastname', 'LIKE', $search)
+									 ->orWhere('peerage', 'LIKE', $search)
+									 ->get();
+						$personCollection = $personCollection->merge($persons);
+					}
+					
+					$personCollection = $personCollection->keyBy('id');
+					$personCollection->each(function ($person) use (&$personCollection, $request)  {
+						if (strtolower($person->firstname.' '.trim($person->peerage.' '.$person->lastname)) == strtolower($request->input('q'))) {
+							$personCollection->forget($person->id);
+							$personCollection->prepend($person);
+						}
+					});
+					
+					break;
+				case "religion":
+					foreach ($arrSearch as $search) {
+						$search  = '%'.$search.'%';
+						$persons = Person::where('religion', 'LIKE', $search)
+									 ->get();
+						$personCollection = $personCollection->merge($persons);
+					}
+					break;
+				case "profession":
+				foreach ($arrSearch as $search) {
+						$search  = '%'.$search.'%';
+						$persons = Person::where('profession', 'LIKE', $search)
+									 ->get();
+						$personCollection = $personCollection->merge($persons);
+					}
+					break;
+				case "title":
+				foreach ($arrSearch as $search) {
+						$search  = '%'.$search.'%';
+						$persons = Person::where('title', 'LIKE', $search)
+									 ->get();
+						$personCollection = $personCollection->merge($persons);
+					}
+					break;
+			}
+		}
 
         $factionCollection = new \Illuminate\Database\Eloquent\Collection;
 

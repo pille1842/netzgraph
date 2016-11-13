@@ -25,18 +25,21 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
     $scope.init = function () {
 
+		$scope.target = "person"
         var jsonNodes = 0;
         var jsonEdges = 0;
+        $scope.nodes = 0;
+        $scope.edges = 0;
         $http.get('/api/relations/factions').success(function (data, status, headers, config) {
             jsonNodes = data.nodes;
             jsonEdges = data.edges;
             var options = data.options;
-            var nodes = new vis.DataSet(jsonNodes);
-            var edges = new vis.DataSet(jsonEdges);
+            $scope.nodes = new vis.DataSet(jsonNodes);
+            $scope. edges = new vis.DataSet(jsonEdges);
             var container = document.getElementById('mynetwork');
             var data = {
-                nodes: nodes,
-                edges: edges
+                nodes: $scope.nodes,
+                edges: $scope.edges
             };
 
             $scope.network = new vis.Network(container, data, options);
@@ -45,16 +48,15 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
             $scope.network.on("click", function (params) {
                 if (params.nodes.length > 0) {
-                    id = params.nodes[0]
-                    url = jsonNodes[id].url
+         /*           nodes.get(params.nodes[0]);
+                    id = params.nodes[0]*/
+                    url = $scope.nodes.get(params.nodes[0]).url
                     if (url.length > 0) {
                         $http.get(url).success(function (data, status, headers, config){
-                            jsonNodes = data.nodes;
-                            jsonEdges = data.edges;
                             var options = data.options;
-                            var nodes = new vis.DataSet(jsonNodes);
-                            var edges = new vis.DataSet(jsonEdges);
-                            $scope.network.setData({nodes:nodes, edges:edges})
+                            $scope.nodes = new vis.DataSet(data.nodes);
+                            $scope.edges  = new vis.DataSet(data.edges);
+                            $scope.network.setData({nodes:$scope.nodes , edges:$scope.edges})
                             $scope.network.setOptions(options);
                             loadProgressBar();
                         })
@@ -66,7 +68,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
 
     $scope.search = function () {
-        $http.get('/api/search/?q=' + $scope.searchfield).success(function (data, status, headers, config) {
+        $http.get('/api/search/?q=' + $scope.searchfield + '&target=' + $scope.target).success(function (data, status, headers, config) {
             var result = data;
             
             var searchResultsContainer = document.getElementById("dropdownId");
@@ -99,5 +101,43 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 	$scope.test = function() {
 		$scope.hide = false
 	}
+	
+	$scope.onPersonClicked = function() {
+		$scope.target = "person"
+		document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Search Person ...")
+	}
+	
+	$scope.onReligionClicked = function() {
+		$scope.target = "religion"
+		document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Search Religion ...")
+	}
+	
+	$scope.onProfessionClicked = function() {
+		$scope.target = "profession"
+		document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Search Profession ...")
+	}
+	
+	$scope.onTitleClicked = function() {
+		$scope.target = "title"
+		document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Search Title ...")
+	}
+	
+	$scope.onFactionProfessionClicked = function() {
+		$scope.target = "faction,profession"
+	}
+	
+	$scope.onFactionEarningsClicked = function() {
+		$scope.target = "faction,earnings"
+	}
+	
+	$scope.onFactionBirthdayClicked = function() {
+		$scope.target = "faction,birthday"
+	}
+	
+	
 	
 }]);
