@@ -66,7 +66,6 @@
 							<li role="separator" class="divider"></li>
 							<li ng-click="onFactionEarningsClicked()"><a href="#">Fraktion - Nebeneinkuenfte</a></li>
 							<li ng-click="onFactionProfessionClicked()"><a href="#">Fraktion - Beruf</a></li>
-							<li ng-Click="onFactionBirthdayClicked()"><a href="#">Fraktion - Geburtsjahr</a></li>
 						  </ul>
 						</div>
 						
