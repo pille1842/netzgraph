@@ -36,8 +36,8 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
             jsonNodes = data.nodes;
             jsonEdges = data.edges;
             var options = data.options;
-            nodes = new vis.DataSet(jsonNodes);
-            edges = new vis.DataSet(jsonEdges);
+            $scope.nodes = new vis.DataSet(jsonNodes);
+            $scope.edges = new vis.DataSet(jsonEdges);
             var container = document.getElementById('mynetwork');
             var data = {
                 nodes: nodes,
