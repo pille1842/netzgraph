@@ -1,21 +1,20 @@
-# Lumen PHP Framework
+# Bundesgraph &ndash; der Bundestag visualisiert
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+*Bundesgraph* ist ein Open-Data-Projekt, das Zusammenhänge in unserem
+Parlament mit interaktiven [Netzgraphen](https://de.wikipedia.org/wiki/Netzdiagramm) visuell greifbar macht.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Zu jedem Abgeordneten lassen sich Zugehörigkeiten zu Ausschüssen und Gremien
+des Bundestags, alle bekannten Nebeneinkünfte und persönliche Angaben
+auflisten.
 
-## Official Documentation
+Graphen der Abgeordneten einer Fraktion und eines Bundeslandes verschaffen
+dem Nutzer einen Überblick über "seine" Volksvertreter.
 
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
+Besonders interessant sind die Graphen der Nebeneinkünfte und der Berufe
+nach Fraktionen.
 
-## Security Vulnerabilities
+*Bundesgraph* greift auf Daten aus den Open-Data-Beständen des Bundestags und
+anderer Projekte zu. Das Ziel ist es, überraschende Zusammenhänge anschaulich
+darzustellen, die sich aus endlosen Listen nicht so einfach ergeben.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Das Projekt entstand im Rahmen des [SWR Codefest 2016](http://www.swr.de/codefest/codefest/-/id=17612852/did=17872174/nid=17612852/nrijja/index.html).
