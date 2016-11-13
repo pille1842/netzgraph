@@ -475,6 +475,7 @@ class RelationsController extends BaseController
 
         $professions = \DB::table('persons')
                        ->select(\DB::raw("COUNT(*) AS prof_count, profession"))
+                       ->where('faction_id', '=', $id)
                        ->groupBy('profession')
                        ->orderBy('prof_count', 'DESC')
                        ->limit(10)
