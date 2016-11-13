@@ -130,15 +130,15 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 	}
 	
 	$scope.onFactionProfessionClicked = function() {
-		$scope.target = "faction,profession"
+		$scope.target = "faction-profession"
 	}
 	
 	$scope.onFactionEarningsClicked = function() {
-		$scope.target = "faction,earnings"
+		$scope.target = "faction-earnings"
 	}
 	
 	$scope.onFactionBirthdayClicked = function() {
-		$scope.target = "faction,birthday"
+		$scope.target = "faction-birthday"
 	}
 	
 	$scope.onStateClicked = function() {
