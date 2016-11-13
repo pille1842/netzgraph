@@ -56,7 +56,7 @@
 							<span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						  <li class="dropdown-header">Search Scope</li>
+						  <li class="dropdown-header">Suchbereich</li>
 							<li ng-click="onPersonClicked()"><a href="#">Personen</a></li>
 							<li ng-click="onReligionClicked()"><a href="#">Religion</a></li>
 							<li ng-click="onProfessionClicked()"><a href="#">Beruf</a></li>
@@ -72,7 +72,7 @@
 						
 						<div class="input-group" style="width:75%;">
 
-							<input ng-model="searchfield" type="text" class="form-control" placeholder="Search Person ..." name="/api/search?q=" id="srch-term" autocomplete="off">
+							<input ng-model="searchfield" type="text" class="form-control" placeholder="Suche Abgeordnete ..." name="/api/search?q=" id="srch-term" autocomplete="off">
 							<div class="input-group-btn" style="padding-left: 4px;">
 								<button ng-href='#here' ng-click='search()' class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 							</div>
