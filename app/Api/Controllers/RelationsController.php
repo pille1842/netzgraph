@@ -475,6 +475,7 @@ class RelationsController extends BaseController
 
         $professions = \DB::table('persons')
                        ->select(\DB::raw("COUNT(*) AS prof_count, profession"))
+                       ->where('faction_id', '=', $id)
                        ->groupBy('profession')
                        ->orderBy('prof_count', 'DESC')
                        ->limit(10)
@@ -485,7 +486,6 @@ class RelationsController extends BaseController
 
         $object = new \stdClass();
         $object->id = $id;
-        $object->label = $faction->name;
         $object->shape = 'image';
         $object->image = $faction->image;
 
@@ -498,14 +498,14 @@ class RelationsController extends BaseController
             $object = new \stdClass();
             $object->id = $professionCounter;
             $object->label = $profession->profession;
-
-            $nodes[] = $object;
+			$object->title = "<strong>".$profession->prof_count."</strong>";
+			$nodes[] = $object;
 
             $object = new \stdClass();
             $object->from = $faction->id;
             $object->to = $professionCounter;
             $object->value = $profession->prof_count;
-            $object->title = $profession->prof_count;
+            $object->title = "<strong>".$profession->prof_count."</strong>";
 
             $edges[] = $object;
 
