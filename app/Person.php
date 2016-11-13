@@ -13,6 +13,11 @@ class Person extends Model
     	return $this->belongsTo('App\Faction');
     }
 
+    public function profession()
+    {
+        return $this->belongsTo('App\Profession');
+    }
+
     public function committees()
     {
     	return $this->belongsToMany('App\Committee')->withPivot('role');
