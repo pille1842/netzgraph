@@ -127,6 +127,18 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 		document.getElementById("srch-term").setAttribute("placeholder","Search Title ...")
 	}
 	
+	$scope.onFactionProfessionClicked = function() {
+		$scope.target = ["faction","profession"]
+	}
+	
+	$scope.onFactionEarningsClicked = function() {
+		$scope.target = ["faction","earnings"]
+	}
+	
+	$scope.onFactionBirthdayClicked = function() {
+		$scope.target = ["faction","birthday"]
+	}
+	
 	
 	
 }]);
