@@ -58,7 +58,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
                             var options = data.options;
                             $scope.nodes = new vis.DataSet(data.nodes);
                             $scope.edges  = new vis.DataSet(data.edges);
-                            $scope.network.setData({nodes:nodes, edges:edges})
+                            $scope.network.setData({nodes:$scope.nodes , edges:$scope.edges})
                             $scope.network.setOptions(options);
                             loadProgressBar();
                         })
