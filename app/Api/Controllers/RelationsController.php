@@ -591,7 +591,7 @@ class RelationsController extends BaseController
             $object->from = $faction->id;
             $object->to = $earningCounter;
             $object->value = $earning->earn_count;
-            $object->title = "<strong>".$earning->earn_count."</strong>";
+            $object->title = "<strong>".$earning->earn_count." Quellen</strong>";
 
             $edges[] = $object;
 
