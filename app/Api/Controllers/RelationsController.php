@@ -488,6 +488,7 @@ class RelationsController extends BaseController
         $object->id = $id;
         $object->shape = 'image';
         $object->image = $faction->image;
+        $object->url = '/api/relations/faction/'.$faction->id;
 
         $nodes[] = $object;
         $professionCounter = 1000;
