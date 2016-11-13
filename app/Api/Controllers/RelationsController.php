@@ -358,6 +358,7 @@ class RelationsController extends BaseController
         	$object->label = $person->firstname.' '.trim($person->peerage.' '.$person->lastname);
         	$object->shape = 'circularImage';
         	$object->image = $person->image;
+			$object->url = '/api/relations/person/'. $person->id ;
 
         	$ids[] = $object->id;
         	$data[] = $object;
