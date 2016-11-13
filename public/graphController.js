@@ -27,7 +27,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
     $scope.init = function () {
 
-		$scope.target = ["person"]
+		$scope.target = "person"
         var jsonNodes = 0;
         var jsonEdges = 0;
         var nodes = 0;
@@ -72,7 +72,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
 
     $scope.search = function () {
-        $http.get('/api/search/?q=' + $scope.searchfield).success(function (data, status, headers, config) {
+        $http.get('/api/search/?q=' + $scope.searchfield + '&target=' + $scope.target).success(function (data, status, headers, config) {
             var result = data;
             
             var searchResultsContainer = document.getElementById("dropdownId");
@@ -107,39 +107,39 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 	}
 	
 	$scope.onPersonClicked = function() {
-		$scope.target = ["person"]
+		$scope.target = "person"
 		document.getElementById("srch-term").value = ""
 		document.getElementById("srch-term").setAttribute("placeholder","Search Person ...")
 	}
 	
 	$scope.onReligionClicked = function() {
-		$scope.target = ["religion"]
+		$scope.target = "religion"
 		document.getElementById("srch-term").value = ""
 		document.getElementById("srch-term").setAttribute("placeholder","Search Religion ...")
 	}
 	
 	$scope.onProfessionClicked = function() {
-		$scope.target = ["profession"]
+		$scope.target = "profession"
 		document.getElementById("srch-term").value = ""
 		document.getElementById("srch-term").setAttribute("placeholder","Search Profession ...")
 	}
 	
 	$scope.onTitleClicked = function() {
-		$scope.target = ["title"]
+		$scope.target = "title"
 		document.getElementById("srch-term").value = ""
 		document.getElementById("srch-term").setAttribute("placeholder","Search Title ...")
 	}
 	
 	$scope.onFactionProfessionClicked = function() {
-		$scope.target = ["faction","profession"]
+		$scope.target = "faction,profession"
 	}
 	
 	$scope.onFactionEarningsClicked = function() {
-		$scope.target = ["faction","earnings"]
+		$scope.target = "faction,earnings"
 	}
 	
 	$scope.onFactionBirthdayClicked = function() {
-		$scope.target = ["faction","birthday"]
+		$scope.target = "faction,birthday"
 	}
 	
 	
