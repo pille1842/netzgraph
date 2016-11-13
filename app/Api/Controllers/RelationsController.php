@@ -74,12 +74,13 @@ class RelationsController extends BaseController
         return ['nodes' => $data, 'edges' => $nodes, 'options' => $this->defaultOptions];
     }
 	
-	public function person($id)
+		public function person($id)
 	{
 		$person = Person::findOrFail($id);
 		$committees = $person->committees;
 		
-		$committeeIdCounter = 1000;
+		$stellvertretenderCommitteeIdCounter = 1000;
+		$ordentlicherCommitteeIdCounter = 2000;
 		
 		$fractionId = 0;
 		$personId = 1;
@@ -89,7 +90,7 @@ class RelationsController extends BaseController
 		
 		$baseEarningLevelNode = 5;
 		$earningLevelIdCounter = 5000; # from 5000 - 5009 if all earning levels are used
-		$earningNameCounter = 5010; # from 5010 - 6000
+		$earningNameCounter = 5011; # from 5010 - 6000
 		
 		$baseStateId = 6000;
 		$stateId = 6001;
@@ -144,35 +145,60 @@ class RelationsController extends BaseController
 		$object->to = $baseCommitteeId;
 		$edges[] = $object; # add to edge
 		
-		
+		$ordentlicherCounter = 0;
+		$stellvertrentenderCounter = 0;
 		# create nodes for each committee
 		foreach($committees as $committee) {
 			$role = $committee->pivot->role;
 			
-			$object = new \stdClass();
-        	$object->id = $committeeIdCounter;
-        	$object->label = $committee->name;
-			$nodes[] = $object; # add not node
+						# check wich role
+			if($role == "Stellvertretendes Mitglied") {
+				$object = new \stdClass();
+				$object->id = $stellvertretenderCommitteeIdCounter;
+				$object->label = $committee->name;
+				$nodes[] = $object; # add not node
+			} else {
+				$object = new \stdClass();
+				$object->id = $ordentlicherCommitteeIdCounter;
+				$object->label = $committee->name;
+				$nodes[] = $object; # add not node
+			}
 			
 			# check wich role
 			if($role == "Stellvertretendes Mitglied") {
-				# stellvertretendes committe
-				# create relation with base committe node
-				$object = new \stdClass();
-				$object->from = $committeeIdCounter;
-				$object->to = $StellvertretendesMitgliedId;
-				$edges[] = $object; # add to edge
+				if($stellvertrentenderCounter < 1) {
+					# stellvertretendes committe
+					# create relation with base committe node
+					$object = new \stdClass();
+					$object->from = $stellvertretenderCommitteeIdCounter;
+					$object->to = $StellvertretendesMitgliedId;
+					$edges[] = $object; # add to edge
+				} else {
+					$object = new \stdClass();
+					$object->from = $stellvertretenderCommitteeIdCounter;
+					$object->to = $stellvertretenderCommitteeIdCounter-1;
+					$edges[] = $object; # add to edge
+				}
+				$stellvertrentenderCounter = $stellvertrentenderCounter + 1;
+				$stellvertretenderCommitteeIdCounter = $stellvertretenderCommitteeIdCounter + 1;
 				
 			} else {
-				# Ordentliches Mitglied
-				# create relation with base committe node
-				$object = new \stdClass();
-				$object->from = $committeeIdCounter;
-				$object->to = $OrdentlichesMitgliedId;
-				$edges[] = $object; # add to edge
+				if($ordentlicherCounter < 1) {
+					# Ordentliches Mitglied
+					# create relation with base committe node
+					$object = new \stdClass();
+					$object->from = $ordentlicherCommitteeIdCounter;
+					$object->to = $OrdentlichesMitgliedId;
+					$edges[] = $object; # add to edge
+				} else {
+					$object = new \stdClass();
+					$object->from = $ordentlicherCommitteeIdCounter;
+					$object->to = $ordentlicherCommitteeIdCounter-1;
+					$edges[] = $object; # add to edge
+				}
+				$ordentlicherCounter = $ordentlicherCounter + 1;
+				$ordentlicherCommitteeIdCounter = $ordentlicherCommitteeIdCounter + 1;
 			}
-			
-			$committeeIdCounter = $committeeIdCounter + 1;
 		}
 		
 		# ---------------------- earning levels and earnings -------------------------------------
@@ -212,6 +238,7 @@ class RelationsController extends BaseController
 			$edges[] = $object; # add to edge
 			
 			# go through all names that are in the same earning level
+			$counter = 0;
 			foreach($earningNames as $earningName) {
 				# add earning name node
 				$object = new \stdClass();
@@ -219,14 +246,22 @@ class RelationsController extends BaseController
 				$object->label = $earningName;
 				$nodes[] = $object; # add node
 				
-				# add relation to earning level
+				if($counter < 1) {
+					# add relation to earning level
 				$object = new \stdClass();
 				$object->from = $earningNameCounter;
 				$object->to = $earningLevelIdCounter;
 				$edges[] = $object; # add to edge
+				} else {
+					# add relation to earning level
+				$object = new \stdClass();
+				$object->from = $earningNameCounter;
+				$object->to = $earningNameCounter-1;
+				$edges[] = $object; # add to edge
+				}
+				$counter = $counter + 1;
 				
-				# add 1 to the counter
-				$earningNameCounter = $earningNameCounter + 1;
+				$earningNameCounter = $earningNameCounter+1;
 			}
 			# add 1 to the counter
 			$earningLevelIdCounter = $earningLevelIdCounter + 1;
