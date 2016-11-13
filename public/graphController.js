@@ -55,11 +55,11 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
                     url = nodes.get(params.nodes[0]).url
                     if (url.length > 0) {
                         $http.get(url).success(function (data, status, headers, config){
-                            jsonNodes = data.nodes;
-                            jsonEdges = data.edges;
+                            nodes= data.nodes;
+                            edges = data.edges;
                             var options = data.options;
-                            var nodes = new vis.DataSet(jsonNodes);
-                            var edges = new vis.DataSet(jsonEdges);
+                            var nodes = new vis.DataSet(data.nodes);
+                            var edges = new vis.DataSet(data.edges);
                             $scope.network.setData({nodes:nodes, edges:edges})
                             $scope.network.setOptions(options);
                             loadProgressBar();
