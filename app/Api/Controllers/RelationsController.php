@@ -22,7 +22,8 @@ class RelationsController extends BaseController
             ]
         ],
         'edges' => [
-            'color' => 'lightgray'
+            'color' => 'lightgray',
+            'length' => 100
         ],
         'clickToUse' => false,
         'layout' => [
@@ -466,5 +467,60 @@ class RelationsController extends BaseController
         ];
 
         return ['nodes' => $data, 'edges' => $nodes, 'options' => array_merge($this->defaultOptions, $options)];
+    }
+
+    public function factionProfession($id)
+    {
+        $faction = Faction::findOrFail($id);
+
+        $professions = \DB::table('persons')
+                       ->select(\DB::raw("COUNT(*) AS prof_count, profession"))
+                       ->groupBy('profession')
+                       ->orderBy('prof_count', 'DESC')
+                       ->limit(10)
+                       ->get();
+
+        $nodes = [];
+        $edges = [];
+
+        $object = new \stdClass();
+        $object->id = $id;
+        $object->label = $faction->name;
+        $object->shape = 'image';
+        $object->image = $faction->image;
+
+        $nodes[] = $object;
+        $professionCounter = 1000;
+        $profMax = 0;
+        $profMin = 1000;
+
+        foreach ($professions as $profession) {
+            $object = new \stdClass();
+            $object->id = $professionCounter;
+            $object->label = $profession->profession;
+
+            $nodes[] = $object;
+
+            $object = new \stdClass();
+            $object->from = $faction->id;
+            $object->to = $professionCounter;
+            $object->value = $profession->prof_count;
+            $object->title = $profession->prof_count;
+
+            $edges[] = $object;
+
+            $professionCounter++;
+
+            if ($profession->prof_count > $profMax) {
+                $profMax = $profession->prof_count;
+            }
+            if ($profession->prof_count < $profMin) {
+                $profMin = $profession->prof_count;
+            }
+        }
+
+        $options = ['edges' => ['length' => 250]];
+
+        return ['nodes' => $nodes, 'edges' => $edges, 'options' => array_merge($this->defaultOptions, $options)];
     }
 }

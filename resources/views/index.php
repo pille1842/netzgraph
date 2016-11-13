@@ -35,7 +35,7 @@
 
 <body ng-app="graph" >
 <div ng-controller='graphCtrl' ng-click="test()">
-	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+	<div class="navbar navbar-inverse navbar-static-top  navbar-fixed-top" role="navigation">
 		
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -72,7 +72,10 @@
 							</ul>
                         </div>
 					</div>
-
+					<button ng-click="onPersonClicked()" type="button" class="searchButton">Personen</button>
+					<button ng-click="onProfessionClicked()" type="button" class="searchButton">Beruf</button>
+					<button ng-click="onReligionClicked()" type="button" class="searchButton">Religion</button>
+					<button ng-Click="onTitleClicked()" type="button" class="searchButton">Titel</button>
 				</form>
 				
 			</div>
