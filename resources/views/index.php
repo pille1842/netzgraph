@@ -77,10 +77,10 @@
 						</div>
 	
 						<div class="col-sm-10 col-md-10" class="dropdown">
-							<div ng-show="searchfield.length" style="width:99%;" id="dropdownId">
+							<div ng-show="searchfield.length" style="width:100%;" id="dropdownId">
 
 							</div>
-							<ul ng-hide="!hide" class="dropdown-content" style="width:auto; list-style-type: none; overflow-y: scroll">
+							<ul ng-hide="!hide" class="dropdown-content" style="max-height: 400px; width:auto; list-style-type: none; overflow-y: scroll">
 								<li ng-repeat="(key,val) in results"  >
 									<a ng-click="setResult(val.url)" >{{ val.caption }}</a>
 								</li>
