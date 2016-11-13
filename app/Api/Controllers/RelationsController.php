@@ -455,8 +455,6 @@ class RelationsController extends BaseController
 
         $data[] = $object;
 
-        $persons = $state->persons;
-
         foreach ($persons as $person) {
             $object = new \stdClass();
             $object->id = $person->id;
