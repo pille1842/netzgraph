@@ -87,10 +87,6 @@
 							</ul>
                         </div>
 					</div>
-					<button ng-click="onPersonClicked()" type="button" class="searchButton">Personen</button>
-					<button ng-click="onProfessionClicked()" type="button" class="searchButton">Beruf</button>
-					<button ng-click="onReligionClicked()" type="button" class="searchButton">Religion</button>
-					<button ng-Click="onTitleClicked()" type="button" class="searchButton">Titel</button>
 				</form>
 				
 			</div>
