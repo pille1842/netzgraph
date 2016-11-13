@@ -352,6 +352,7 @@ class RelationsController extends BaseController
         $object->id = 0;
         $object->shape = 'image';
         $object->image = $faction->image;
+		$object->title = "<strong>".count($persons)." Abgeordnete</strong>";
 
         $data[] = $object;
 
@@ -376,12 +377,22 @@ class RelationsController extends BaseController
         	$nodes[] = $object;
         }
 
-        $options = [
-            'physics' => [
-                'barnesHut' => [
-                    'gravitationalConstant' => -10000
+		$options = [
+			'layout' => [
+				'improvedLayout' => false,
+				'hierarchical' => [
+					'enabled'=> false
+				]
+			],
+			'physics' => [
+				'minVelocity' => 9,
+				'solver' => 'barnesHut',
+				'timestep' => 0.2,
+				'adaptiveTimestep' => true,
+				'barnesHut' => [
+                    'gravitationalConstant' => -20000
                 ]
-            ]
+			]
         ];
 
         return ['nodes' => $data, 'edges' => $nodes, 'options' => array_replace($this->defaultOptions, $options)];
@@ -439,6 +450,7 @@ class RelationsController extends BaseController
         $object->label = $state->name;
         $object->shape = 'image';
         $object->image = $state->image;
+		$object->title = "<strong>".count($persons)." Bundesl&auml;nder</strong>";
 
         $data[] = $object;
 

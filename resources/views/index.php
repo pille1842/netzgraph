@@ -61,6 +61,8 @@
 							<li ng-click="onReligionClicked()"><a href="#">Religion</a></li>
 							<li ng-click="onProfessionClicked()"><a href="#">Beruf</a></li>
 							<li ng-click="onTitleClicked()"><a href="#">Titel</a></li>
+							<li ng-click="onStateClicked()"><a href="#">Bundesland</a></li>
+							
 							<li role="separator" class="divider"></li>
 							<li ng-click="onFactionEarningsClicked()"><a href="#">Fraktion - Nebeneinkuenfte</a></li>
 							<li ng-click="onFactionProfessionClicked()"><a href="#">Fraktion - Beruf</a></li>
