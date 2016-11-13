@@ -108,33 +108,37 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 	$scope.onPersonClicked = function() {
 		$scope.target = "person"
 		document.getElementById("srch-term").value = ""
-		document.getElementById("srch-term").setAttribute("placeholder","Search Person ...")
+		document.getElementById("srch-term").setAttribute("placeholder","Suche Abgeordnete ...")
 	}
 	
 	$scope.onReligionClicked = function() {
 		$scope.target = "religion"
 		document.getElementById("srch-term").value = ""
-		document.getElementById("srch-term").setAttribute("placeholder","Search Religion ...")
+		document.getElementById("srch-term").setAttribute("placeholder","Suche Religionen ...")
 	}
 	
 	$scope.onProfessionClicked = function() {
 		$scope.target = "profession"
 		document.getElementById("srch-term").value = ""
-		document.getElementById("srch-term").setAttribute("placeholder","Search Profession ...")
+		document.getElementById("srch-term").setAttribute("placeholder","Suche Berufe ...")
 	}
 	
 	$scope.onTitleClicked = function() {
 		$scope.target = "title"
 		document.getElementById("srch-term").value = ""
-		document.getElementById("srch-term").setAttribute("placeholder","Search Title ...")
+		document.getElementById("srch-term").setAttribute("placeholder","Suche Akademische Titel ...")
 	}
 	
 	$scope.onFactionProfessionClicked = function() {
 		$scope.target = "faction-profession"
+        document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Suche Fraktionen ...")
 	}
 	
 	$scope.onFactionEarningsClicked = function() {
 		$scope.target = "faction-earnings"
+        document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Suche Fraktionen ...")
 	}
 	
 	$scope.onFactionBirthdayClicked = function() {
@@ -144,7 +148,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 	$scope.onStateClicked = function() {
 		$scope.target = "state"
 		document.getElementById("srch-term").value = ""
-		document.getElementById("srch-term").setAttribute("placeholder","Search State ...")
+		document.getElementById("srch-term").setAttribute("placeholder","Suche Bundesländer ...")
 	}
 	
 	
