@@ -3,9 +3,12 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
     
     loadProgressBar = function(){
-                document.getElementById('loadingBar').style.opacity = 100;
-               setTimeout(function () { document.getElementById('loadingBar').style.display = 'show'; }, 500);
+                
+				
+               //setTimeout(function () { document.getElementById('loadingBar').style.display = 'show'; }, 500);
                 $scope.network.on("stabilizationProgress", function (params) {
+				document.getElementById('loadingBar').style.opacity = 100;
+				document.getElementById('mynetwork').style.visibility = "hidden"
                 var maxWidth = 496;
                 var minWidth = 20;
                 var widthFactor = params.iterations / params.total;
@@ -15,6 +18,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
                 document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
             });
             $scope.network.once("stabilizationIterationsDone", function () {
+				document.getElementById('mynetwork').style.visibility = "visible"
                 document.getElementById('text').innerHTML = '100%';
                 document.getElementById('bar').style.width = '496px';
                 document.getElementById('loadingBar').style.opacity = 0;
