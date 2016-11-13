@@ -5,6 +5,7 @@ namespace App\Api\Controllers;
 use Illuminate\Http\Request;
 use App\Person;
 use App\Faction;
+use App\State;
 
 class SearchController extends BaseController
 {
