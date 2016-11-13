@@ -370,6 +370,7 @@ class RelationsController extends BaseController
                 ]
             ]
         ];
+		
 		//font: '24px'
 		return ['nodes' => $nodes, 'edges' => $edges, 'options' => array_replace($this->defaultOptions, $options)];
 	}
