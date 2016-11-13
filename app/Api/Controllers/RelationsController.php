@@ -350,8 +350,7 @@ class RelationsController extends BaseController
 
         $object = new \stdClass();
         $object->id = 0;
-        $object->label = $faction->name;
-        $object->shape = 'circularImage';
+        $object->shape = 'image';
         $object->image = $faction->image;
 
         $data[] = $object;
@@ -377,7 +376,15 @@ class RelationsController extends BaseController
         	$nodes[] = $object;
         }
 
-        return ['nodes' => $data, 'edges' => $nodes, 'options' => $this->defaultOptions];
+        $options = [
+            'physics' => [
+                'barnesHut' => [
+                    'gravitationalConstant' => -10000
+                ]
+            ]
+        ];
+
+        return ['nodes' => $data, 'edges' => $nodes, 'options' => array_replace($this->defaultOptions, $options)];
     }
 
     public function factions()
@@ -420,7 +427,7 @@ class RelationsController extends BaseController
             ]
         ];
 
-        return ['nodes' => $data, 'edges' => $nodes, 'options' => array_merge($this->defaultOptions, $options)];
+        return ['nodes' => $data, 'edges' => $nodes, 'options' => array_replace($this->defaultOptions, $options)];
     }
 
     public function state($id)
@@ -466,7 +473,7 @@ class RelationsController extends BaseController
             ]
         ];
 
-        return ['nodes' => $data, 'edges' => $nodes, 'options' => array_merge($this->defaultOptions, $options)];
+        return ['nodes' => $data, 'edges' => $nodes, 'options' => array_replace($this->defaultOptions, $options)];
     }
 
     public function factionProfession($id)
@@ -488,6 +495,7 @@ class RelationsController extends BaseController
         $object->id = $id;
         $object->shape = 'image';
         $object->image = $faction->image;
+        $object->url = '/api/relations/faction/'.$faction->id;
 
         $nodes[] = $object;
         $professionCounter = 1000;
@@ -521,6 +529,6 @@ class RelationsController extends BaseController
 
         $options = ['edges' => ['length' => 250]];
 
-        return ['nodes' => $nodes, 'edges' => $edges, 'options' => array_merge($this->defaultOptions, $options)];
+        return ['nodes' => $nodes, 'edges' => $edges, 'options' => array_replace($this->defaultOptions, $options)];
     }
 }
