@@ -20,6 +20,7 @@ class SearchController extends BaseController
 		
 		
 		$personCollection = new \Illuminate\Database\Eloquent\Collection;
+        $statesCollection = new \Illuminate\Database\Eloquent\Collection;
 		$arrSearch = explode(' ', $request->input('q'));
 		
 		foreach($arrSearchTypes as $arrSearchType) {
@@ -52,7 +53,7 @@ class SearchController extends BaseController
 					}
 					break;
 				case "profession":
-				foreach ($arrSearch as $search) {
+				    foreach ($arrSearch as $search) {
 						$search  = '%'.$search.'%';
 						$persons = Person::where('profession', 'LIKE', $search)
 									 ->get();
@@ -60,13 +61,21 @@ class SearchController extends BaseController
 					}
 					break;
 				case "title":
-				foreach ($arrSearch as $search) {
+				    foreach ($arrSearch as $search) {
 						$search  = '%'.$search.'%';
 						$persons = Person::where('title', 'LIKE', $search)
 									 ->get();
 						$personCollection = $personCollection->merge($persons);
 					}
 					break;
+                case "state":
+                    foreach ($arrSearch as $search) {
+                        $search = '%'.$search.'%';
+                        $states = State::where('name', 'LIKE', $search)
+                                     ->get();
+                        $statesCollection = $statesCollection->merge($states);
+                    }
+                    break;
 			}
 		}
 
@@ -91,6 +100,13 @@ class SearchController extends BaseController
             $data[] = [
                 'url' => '/api/relations/person/'.$person->id,
                 'caption' => $person->firstname.' '.trim($person->peerage.' '.$person->lastname).' ('.$person->faction->name.')'
+            ];
+        }
+
+        foreach ($statesCollection as $state) {
+            $data[] = [
+                'url' => '/api/relations/state/'.$state->id,
+                'caption' => $state->name
             ];
         }
 
