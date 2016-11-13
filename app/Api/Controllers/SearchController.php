@@ -102,7 +102,7 @@ class SearchController extends BaseController
         foreach ($factionProfessionCollection as $faction) {
             $data[] = [
                 'url' => '/api/relations/faction/'.$faction->id.'/professions',
-                'caption' => 'Fraktion '.$faction->name
+                'caption' => 'Fraktion '.$faction->name.' (Berufe)'
             ];
         }
 
