@@ -24,6 +24,7 @@ class SearchController extends BaseController
         $statesCollection = new \Illuminate\Database\Eloquent\Collection;
         $factionCollection = new \Illuminate\Database\Eloquent\Collection;
         $factionProfessionCollection = new \Illuminate\Database\Eloquent\Collection;
+        $factionEarningsCollection = new \Illuminate\Database\Eloquent\Collection;
 		$arrSearch = explode(' ', $request->input('q'));
 		
 		foreach($arrSearchTypes as $arrSearchType) {
@@ -87,6 +88,14 @@ class SearchController extends BaseController
                         $factionProfessionCollection = $factionProfessionCollection->merge($factions);
                     }
                     break;
+                case 'faction-earnings':
+                    foreach ($arrSearch as $search) {
+                        $search = '%'.$search.'%';
+                        $factions = Faction::where('name', 'LIKE', $search)
+                                     ->get();
+                        $factionEarningsCollection = $factionEarningsCollection->merge($factions);
+                    }
+                    break;
 			}
 		}
 
@@ -103,6 +112,13 @@ class SearchController extends BaseController
             $data[] = [
                 'url' => '/api/relations/faction/'.$faction->id.'/professions',
                 'caption' => 'Fraktion '.$faction->name.' (Berufe)'
+            ];
+        }
+
+        foreach ($factionEarningsCollection as $faction) {
+            $data[] = [
+                'url' => '/api/relations/faction/'.$faction->id.'/earnings',
+                'caption' => 'Fraktion '.$faction->name.' (Nebeneinkünfte)'
             ];
         }
 

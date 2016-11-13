@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Person;
 use App\Faction;
 use App\State;
+use App\Earninglevel;
 
 class RelationsController extends BaseController
 {
@@ -534,6 +535,73 @@ class RelationsController extends BaseController
             }
             if ($profession->prof_count < $profMin) {
                 $profMin = $profession->prof_count;
+            }
+        }
+
+        $options = ['edges' => ['length' => 250]];
+
+        return ['nodes' => $nodes, 'edges' => $edges, 'options' => array_replace($this->defaultOptions, $options)];
+    }
+
+    public function factionEarnings($id)
+    {
+        $faction = Faction::findOrFail($id);
+
+        $earnings = \DB::table('earnings')
+                  ->select(\DB::raw("COUNT(*) AS earn_count, earninglevel_id"))
+                  ->join('persons', function ($join) use ($id) {
+                    $join->on('earnings.person_id', '=', 'persons.id')
+                         ->where('persons.faction_id', '=', $id);
+                  })
+                  ->groupBy('earninglevel_id')
+                  ->orderBy('earn_count', 'DESC')
+                  ->get();
+
+        $earninglevels = Earninglevel::all()->keyBy('id');
+
+        $nodes = [];
+        $edges = [];
+
+        $earningTotals = 0;
+
+        foreach ($earnings as $earning) {
+            $earningTotals += $earning->earn_count;
+        }
+
+        $object = new \stdClass();
+        $object->id = $id;
+        $object->shape = 'image';
+        $object->image = $faction->image;
+        $object->url = '/api/relations/faction/'.$faction->id;
+        $object->title = '<strong>Insgesamt '.$earningTotals.' Nebeneinkünfte</strong>';
+
+        $nodes[] = $object;
+        $earningCounter = 1000;
+        $earnMax = 0;
+        $earnMin = 1000;
+
+        foreach ($earnings as $earning) {
+            $object = new \stdClass();
+            $object->id = $earningCounter;
+            $object->label = $earninglevels->find($earning->earninglevel_id)->value;
+            $object->title = "<strong>".$earning->earn_count."</strong>";
+            $nodes[] = $object;
+
+            $object = new \stdClass();
+            $object->from = $faction->id;
+            $object->to = $earningCounter;
+            $object->value = $earning->earn_count;
+            $object->title = "<strong>".$earning->earn_count."</strong>";
+
+            $edges[] = $object;
+
+            $earningCounter++;
+
+            if ($earning->earn_count > $earnMax) {
+                $earnMax = $earning->earn_count;
+            }
+            if ($earning->earn_count < $earnMin) {
+                $earnMin = $earning->earn_count;
             }
         }
 

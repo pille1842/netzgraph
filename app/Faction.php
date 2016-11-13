@@ -10,4 +10,9 @@ class Faction extends Model
     {
     	return $this->hasMany('App\Person');
     }
+
+    public function earnings()
+    {
+    	return $this->hasManyThrough('App\Earning', 'App\Person');
+    }
 }
