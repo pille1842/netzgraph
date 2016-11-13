@@ -3,11 +3,10 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 
     
     loadProgressBar = function(){
-                
+                document.getElementById('loadingBar').style.opacity = 100;
 				
-               //setTimeout(function () { document.getElementById('loadingBar').style.display = 'show'; }, 500);
+                //setTimeout(function () { document.getElementById('loadingBar').style.display = 'show'; }, 500);
                 $scope.network.on("stabilizationProgress", function (params) {
-				document.getElementById('loadingBar').style.opacity = 100;
 				document.getElementById('mynetwork').style.visibility = "hidden"
                 var maxWidth = 496;
                 var minWidth = 20;
@@ -23,7 +22,7 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
                 document.getElementById('bar').style.width = '496px';
                 document.getElementById('loadingBar').style.opacity = 0;
                 // really clean the dom element
-                // setTimeout(function () { document.getElementById('loadingBar').style.display = 'none'; }, 500);
+                //setTimeout(function () { document.getElementById('loadingBar').style.display = 'none'; }, 500);
             });
     }
 
@@ -140,6 +139,12 @@ appModule.controller('graphCtrl', ['$scope', '$http', '$compile', function ($sco
 	
 	$scope.onFactionBirthdayClicked = function() {
 		$scope.target = "faction,birthday"
+	}
+	
+	$scope.onStateClicked = function() {
+		$scope.target = "state"
+		document.getElementById("srch-term").value = ""
+		document.getElementById("srch-term").setAttribute("placeholder","Search State ...")
 	}
 	
 	
