@@ -444,13 +444,14 @@ class RelationsController extends BaseController
     public function state($id)
     {
         $state = State::findOrFail($id);
+        $persons = $state->persons;
 
         $object = new \stdClass();
         $object->id = 0;
         $object->label = $state->name;
         $object->shape = 'image';
         $object->image = $state->image;
-		$object->title = "<strong>".count($persons)." Bundesl&auml;nder</strong>";
+		$object->title = "<strong>".count($persons)." Abgeordnete</strong>";
 
         $data[] = $object;
 
